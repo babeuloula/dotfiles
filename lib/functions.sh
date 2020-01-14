@@ -97,26 +97,32 @@ function install_apt_packages() {
     echo_info "Install APT packages:"
 
     apt install -y \
+        bash-completion \
+        bat \
         compizconfig-settings-manager \
         dia \
         firefox \
+        fonts-powerline \
         git \
         gitkraken \
+        gnome-tweaks \
         google-chrome-stable \
-        bat \
         htop \
         httpie \
         imagemagick \
+        jq \
+        less \
         make \
         meld \
         mysql-workbench \
         nano \
+        ssh \
         teamviewer \
         tilix \
-        fonts-powerline \
-        zsh \
-        gnome-tweaks \
+        unzip \
+        unrar \
         variety \
+        zsh \
         -- no-install-recommends
 }
 
@@ -181,6 +187,7 @@ function setup_zsh() {
 
     cp ${DOTFILES_CONFIG_DIR}/aliases ~/.aliases
     cp ${DOTFILES_CONFIG_DIR}/dockerfunc ~/.dockerfunc
+    cp ${DOTFILES_CONFIG_DIR}/functions ~/.functions
     cp ${DOTFILES_CONFIG_DIR}/zsh_profile ~/.zsh_profile
     cp ${DOTFILES_CONFIG_DIR}/zshrc ~/.zshrc
 }
