@@ -11,7 +11,7 @@ readonly PURPLE='\033[0;35m'
 readonly CYAN='\033[0;36m'
 readonly WHITE='\033[0;37m'
 
-readonly DOTFILES_CONFIG_DIR="~/.dotfiles/config"
+readonly DOTFILES_CONFIG_DIR="/home/${USERNAME}/.dotfiles/config"
 
 check_is_sudo() {
     if [[ "${EUID}" -ne 0 ]]; then
@@ -89,22 +89,24 @@ function echo_info() {
 
 function trap_exit() {
     if [[ $? -ne 0 ]]; then
-        block_error "Une erreur est survenue lors de l'installation du dotfile."
+        block_error "An error occurred during dotfiles installation."
     fi
 }
 
 function install_apt_packages() {
-    echo_info "Install APT packages:"
+    echo_info "Install APT packages"
 
+    sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+
+    apt update
     apt install -y \
         bash-completion \
-        bat \
         compizconfig-settings-manager \
         dia \
         firefox \
         fonts-powerline \
         git \
-        gitkraken \
         gnome-tweaks \
         google-chrome-stable \
         htop \
@@ -117,44 +119,43 @@ function install_apt_packages() {
         mysql-workbench \
         nano \
         ssh \
-        teamviewer \
         tilix \
         unzip \
         unrar \
         variety \
         zsh \
-        -- no-install-recommends
+        --no-install-recommends
 }
 
 function install_snap_packages() {
-    echo_info "Install SNAP packages:"
+    echo_info "Install SNAP packages"
 
     snap install \
-        datagrip \
         gimp \
+        gitkraken \
         mailspring \
-        phpstorm \
         postman \
-        skype \
-        slack \
         spotify \
-        sublime-text \
         termius-app \
         tldr \
         vlc \
         indicator-sensors
+
+    snap install --classic datagrip
+    snap install --classic phpstorm
+    snap install --classic skype
+    snap install --classic sublime-text
 }
 
 function install_docker() {
-    echo_info "Install Docker & Docker Compose:"
+    echo_info "Install Docker & Docker Compose"
 
-    apt-get update
-    apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
     apt-key fingerprint 0EBFCD88
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     apt-get update
-    apt-get install docker-ce docker-ce-cli containerd.io
+    apt-get install -y docker-ce docker-ce-cli containerd.io
 
     curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
@@ -163,44 +164,44 @@ function install_docker() {
 }
 
 function clean_apt() {
-    echo_info "Clean APT:"
+    echo_info "Clean APT"
 
-    apt-get autoremove
-    apt-get autoclean
-    apt-get clean
+    apt autoremove -y
+    apt autoclean -y
+    apt clean -y
 }
 
 function setup_tilix() {
-    echo_info "Setting up Tilix:"
+    echo_info "Setting up Tilix"
 
     dconf load /com/gexperts/Tilix/ < ${DOTFILES_CONFIG_DIR}/tilix.conf
 }
 
 function setup_zsh() {
-    echo_info "Setting up zsh:"
+    echo_info "Setting up zsh"
 
     chsh -s /bin/zsh
-    cd ~/
+    cd "/home/${USERNAME}"
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-    wget -P ~/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
+    wget -P /home/${USERNAME}/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
 
-    cp ${DOTFILES_CONFIG_DIR}/aliases ~/.aliases
-    cp ${DOTFILES_CONFIG_DIR}/dockerfunc ~/.dockerfunc
-    cp ${DOTFILES_CONFIG_DIR}/functions ~/.functions
-    cp ${DOTFILES_CONFIG_DIR}/zsh_profile ~/.zsh_profile
-    cp ${DOTFILES_CONFIG_DIR}/zshrc ~/.zshrc
+    cp ${DOTFILES_CONFIG_DIR}/aliases /home/${USERNAME}/.aliases
+    cp ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USERNAME}/.dockerfunc
+    cp ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
+    cp ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USERNAME}/.zsh_profile
+    cp ${DOTFILES_CONFIG_DIR}/zshrc /home/${USERNAME}/.zshrc
 }
 
 function setup_nano() {
-    echo_info "Setting up nano:"
+    echo_info "Setting up nano"
 
-    cp ${DOTFILES_CONFIG_DIR}/nanorc ~/.nanorc
+    cp ${DOTFILES_CONFIG_DIR}/nanorc /home/${USERNAME}/.nanorc
 }
 
 function setup_git() {
-    echo_info "Setting up git:"
+    echo_info "Setting up git"
 
-    cp ${DOTFILES_CONFIG_DIR}/gitignore_global ~/.gitignore_global
-    cp ${DOTFILES_CONFIG_DIR}/gitconfig ~/.gitconfig
+    cp ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USERNAME}/.gitignore_global
+    cp ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USERNAME}/.gitconfig
 }
