@@ -1,4 +1,4 @@
-# dotfile
+# dotfiles
 
 Broadly inspired from [jdecool/dotfiles](https://github.com/jdecool/dotfiles)
 
