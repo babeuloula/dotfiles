@@ -3,6 +3,7 @@
 set -e
 
 readonly DOCKER_PATH=$(dirname $(realpath $0))
+readonly USERNAME=$(logname)
 
 cd ${DOCKER_PATH};
 
@@ -23,6 +24,9 @@ function main() {
     setup_tilix
     setup_zsh
     setup_git
+    setup_nano
+
+    block_success "Installation finished!"
 }
 
 main $0 "$@"
