@@ -18,6 +18,8 @@ function main() {
 
     install_docker
 
+    clean_apt
+
     setup_tilix
     setup_zsh
     setup_git

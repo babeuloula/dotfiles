@@ -1,6 +1,8 @@
 # dotfiles
 
-Broadly inspired from [jdecool/dotfiles](https://github.com/jdecool/dotfiles)
+Inspired by:
+- [jdecool/dotfiles](https://github.com/jdecool/dotfiles)
+- [jessfraz/dotfiles](https://github.com/jessfraz/dotfiles)
 
 ## Installtion
 

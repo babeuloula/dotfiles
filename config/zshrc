@@ -5,7 +5,15 @@ ZSH_THEME="babeuloula"
 setopt correct
 
 plugins=(
-    git
+    command-not-found
+    composer
+    copyfile
+    docker
+    docker-compose
+    encode64
+    extract
+    httpie
+    sublime
 )
 
 source $ZSH/oh-my-zsh.sh

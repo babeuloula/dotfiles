@@ -11,6 +11,8 @@ readonly PURPLE='\033[0;35m'
 readonly CYAN='\033[0;36m'
 readonly WHITE='\033[0;37m'
 
+readonly DOTFILES_CONFIG_DIR="~/.dotfiles/config"
+
 check_is_sudo() {
     if [[ "${EUID}" -ne 0 ]]; then
         block_error "Please run as root."
@@ -114,7 +116,8 @@ function install_apt_packages() {
         fonts-powerline \
         zsh \
         gnome-tweaks \
-        variety
+        variety \
+        -- no-install-recommends
 }
 
 function install_snap_packages() {
@@ -150,13 +153,21 @@ function install_docker() {
     curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
 
-    usermod -a -G docker ${USERNAME}
+    usermod -aG docker ${USERNAME}
+}
+
+function clean_apt() {
+    echo_info "Clean APT:"
+
+    apt-get autoremove
+    apt-get autoclean
+    apt-get clean
 }
 
 function setup_tilix() {
     echo_info "Setting up Tilix:"
 
-    dconf load /com/gexperts/Tilix/ < ~/.dotfiles/config/tilix.conf
+    dconf load /com/gexperts/Tilix/ < ${DOTFILES_CONFIG_DIR}/tilix.conf
 }
 
 function setup_zsh() {
@@ -168,21 +179,21 @@ function setup_zsh() {
 
     wget -P ~/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
 
-    cp ~/.dotfiles/config/.aliases ~/.aliases
-    cp ~/.dotfiles/config/.dockerfunc ~/.dockerfunc
-    cp ~/.dotfiles/config/.zsh_profile ~/.zsh_profile
-    cp ~/.dotfiles/config/.zshrc ~/.zshrc
+    cp ${DOTFILES_CONFIG_DIR}/aliases ~/.aliases
+    cp ${DOTFILES_CONFIG_DIR}/dockerfunc ~/.dockerfunc
+    cp ${DOTFILES_CONFIG_DIR}/zsh_profile ~/.zsh_profile
+    cp ${DOTFILES_CONFIG_DIR}/zshrc ~/.zshrc
 }
 
 function setup_nano() {
     echo_info "Setting up nano:"
 
-    cp ~/.dotfiles/config/.nanorc ~/.nanorc
+    cp ${DOTFILES_CONFIG_DIR}/nanorc ~/.nanorc
 }
 
 function setup_git() {
     echo_info "Setting up git:"
 
-    cp ~/.dotfiles/config/.gitignore_global ~/.gitignore_global
-    cp ~/.dotfiles/config/.gitconfig ~/.gitconfig
+    cp ${DOTFILES_CONFIG_DIR}/gitignore_global ~/.gitignore_global
+    cp ${DOTFILES_CONFIG_DIR}/gitconfig ~/.gitconfig
 }
