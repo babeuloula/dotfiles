@@ -118,6 +118,8 @@ function install_apt_packages() {
         meld \
         mysql-workbench \
         nano \
+        rclone \
+        rclonetray \
         ssh \
         tilix \
         unzip \
