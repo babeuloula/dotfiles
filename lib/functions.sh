@@ -144,6 +144,7 @@ function install_snap_packages() {
     snap install --classic datagrip
     snap install --classic phpstorm
     snap install --classic skype
+    snap install --classic slack
     snap install --classic sublime-text
 }
 
