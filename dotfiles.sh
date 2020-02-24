@@ -16,6 +16,7 @@ function main() {
 
     install_apt_packages
     install_snap_packages
+    install_deb_packages
 
     install_docker
 
