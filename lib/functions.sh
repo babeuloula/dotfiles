@@ -87,6 +87,10 @@ function echo_info() {
     echo -e "${CYAN}${1} ${RESET}" > /dev/tty
 }
 
+function echo_replace() {
+    echo  -e "$1 \r\c" > /dev/tty
+}
+
 function trap_exit() {
     if [[ $? -ne 0 ]]; then
         block_error "An error occurred during dotfiles installation."
@@ -148,6 +152,17 @@ function install_snap_packages() {
     snap install --classic skype
     snap install --classic slack
     snap install --classic sublime-text
+}
+
+function install_deb_packages() {
+    echo_info "Install DEB packages:"
+
+    echo_replace "${GREEN} - Boost Note... ${RESET}"
+    readonly BOOSTNOTE_DEB="boostnote_0.14.0_amd64.deb"
+    wget -q "https://github.com/BoostIO/boost-releases/releases/download/v0.14.0/${BOOSTNOTE_DEB}"
+    sudo dpkg- i ${BOOSTNOTE_DEB}
+    rm ${BOOSTNOTE_DEB}
+    echo_success " - Boost Note OK"
 }
 
 function install_docker() {
