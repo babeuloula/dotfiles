@@ -204,6 +204,8 @@ function setup_zsh() {
 
     wget -P /home/${USERNAME}/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
 
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
     cp ${DOTFILES_CONFIG_DIR}/aliases /home/${USERNAME}/.aliases
     cp ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USERNAME}/.dockerfunc
     cp ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
