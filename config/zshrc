@@ -16,6 +16,7 @@ plugins=(
     extract
     httpie
     sublime
+    zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
