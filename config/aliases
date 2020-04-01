@@ -43,19 +43,19 @@ alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | gre
 alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # PHP
-alias php74='docker run --rm -it --name php74_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.4-cli'
-alias php73='docker run --rm -it --name php73_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.3-cli'
-alias php72='docker run --rm -it --name php72_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.2-cli'
-alias php71='docker run --rm -it --name php71_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.1-cli'
+alias php74='docker run --rm -it --name php74_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.4-cli php'
+alias php73='docker run --rm -it --name php73_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.3-cli php'
+alias php72='docker run --rm -it --name php72_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.2-cli php'
+alias php71='docker run --rm -it --name php71_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.1-cli php'
 alias php="php74"
 
 # NodeJS
-alias node13='docker run --rm -it --name node_13 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:13-alpine'
-alias node12='docker run --rm -it --name node_12 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:12-alpine'
-alias node10='docker run --rm -it --name node_10 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:10-alpine'
+alias node13='docker run --rm -it --name node_13 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:13-alpine node'
+alias node12='docker run --rm -it --name node_12 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:12-alpine node'
+alias node10='docker run --rm -it --name node_10 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:10-alpine node'
 alias node="node13"
 
 # NPM
-alias npm8='docker run --rm -it --name npm_8 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp npm-docker-baseline:8-alpine'
-alias npm6='docker run --rm -it --name npm_6 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp npm-docker-baseline:6-alpine'
+alias npm8='docker run --rm -it --name npm_8 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp npm-docker-baseline:8-alpine npm'
+alias npm6='docker run --rm -it --name npm_6 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp npm-docker-baseline:6-alpine npm'
 alias npm="npm8"
