@@ -50,12 +50,11 @@ alias php71='docker run --rm -it --name php71_docker --user ${UID} -v "$(pwd)":/
 alias php="php74"
 
 # NodeJS
-alias node13='docker run --rm -it --name node_13 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:13-alpine node'
+alias docker_node='docker run --rm -it --name node_13 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:13-alpine'
+alias node13="docker_node node"
 alias node12='docker run --rm -it --name node_12 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:12-alpine node'
 alias node10='docker run --rm -it --name node_10 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:10-alpine node'
 alias node="node13"
 
 # NPM
-alias npm8='docker run --rm -it --name npm_8 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp npm-docker-baseline:8-alpine npm'
-alias npm6='docker run --rm -it --name npm_6 --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp npm-docker-baseline:6-alpine npm'
-alias npm="npm8"
+alias npm="docker_node npm"
