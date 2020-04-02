@@ -148,6 +148,7 @@ function install_snap_packages() {
         indicator-sensors
 
     snap install --classic datagrip
+    snap install --classic discord
     snap install --classic phpstorm
     snap install --classic skype
     snap install --classic slack
