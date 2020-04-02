@@ -1,0 +1,6 @@
+#!/bin/bash
+
+docker-rm-images() {
+  docker rm $(docker ps -a -q)
+  docker rmi $(docker images -q)
+}
