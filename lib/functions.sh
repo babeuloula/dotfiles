@@ -123,7 +123,6 @@ function install_apt_packages() {
         mysql-workbench \
         nano \
         rclone \
-        rclonetray \
         ssh \
         tilix \
         unzip \
@@ -165,6 +164,13 @@ function install_deb_packages() {
     sudo dpkg- i ${BOOSTNOTE_DEB}
     rm ${BOOSTNOTE_DEB}
     echo_success " - Boost Note OK"
+
+    echo_replace "${GREEN} - RcloneTray... ${RESET}"
+    readonly RCLONETRAY_DEB="rclonetray_1.0.0_amd64.deb"
+    wget -q "https://github.com/dimitrov-adrian/RcloneTray/releases/download/v1.0.0/${RCLONETRAY_DEB}"
+    sudo dpkg- i ${RCLONETRAY_DEB}
+    rm ${RCLONETRAY_DEB}
+    echo_success " - RcloneTray OK"
 }
 
 function install_docker() {
