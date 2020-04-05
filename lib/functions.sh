@@ -153,6 +153,7 @@ function install_snap_packages() {
     snap install --classic skype
     snap install --classic slack
     snap install --classic sublime-text
+    snap install --classic ngrok
 }
 
 function install_deb_packages() {
