@@ -30,18 +30,11 @@ function block() {
 
 block "44" "Welcome to your dotfiles installer!"
 
-check_is_sudo() {
-    if [[ "${EUID}" -ne 0 ]]; then
-        echo -e "${RED}Please run as root. ${RESET}" > /dev/tty
-        exit 1
-    fi
-}
-
 echo -e "${CYAN}Install minimum requirements before install.${RESET}" > /dev/tty
 
-apt update
-apt upgrade -y
-apt install -y \
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y \
     curl \
     git
 
