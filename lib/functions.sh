@@ -94,7 +94,7 @@ function install_apt_packages() {
     echo_info "Install APT packages"
 
     sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-    sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
     sudo apt update
     sudo apt install -y \
@@ -170,7 +170,7 @@ function install_docker() {
     echo_info "Install Docker & Docker Compose"
 
     sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo apt-key fingerprint 0EBFCD88
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     sudo apt-get update
@@ -199,7 +199,7 @@ function setup_tilix() {
 function setup_zsh() {
     echo_info "Setting up zsh"
 
-    chsh -s /bin/zsh
+    sudo chsh -s /bin/zsh
     cd "/home/${USERNAME}"
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
