@@ -12,8 +12,6 @@ cd ${DOCKER_PATH};
 trap trap_exit EXIT
 
 function main() {
-    check_is_sudo
-
     install_apt_packages
     install_snap_packages
     install_deb_packages

@@ -13,13 +13,6 @@ readonly WHITE='\033[0;37m'
 
 readonly DOTFILES_CONFIG_DIR="/home/${USERNAME}/.dotfiles/config"
 
-check_is_sudo() {
-    if [[ "${EUID}" -ne 0 ]]; then
-        block_error "Please run as root."
-        exit 1
-    fi
-}
-
 function ask_value() {
     local message=$1
     local default_value=$2
@@ -100,11 +93,11 @@ function trap_exit() {
 function install_apt_packages() {
     echo_info "Install APT packages"
 
-    sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+    sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 
-    apt update
-    apt install -y \
+    sudo apt update
+    sudo apt install -y \
         bash-completion \
         compizconfig-settings-manager \
         dia \
@@ -135,7 +128,7 @@ function install_apt_packages() {
 function install_snap_packages() {
     echo_info "Install SNAP packages"
 
-    snap install \
+    sudo snap install \
         gimp \
         gitkraken \
         mailspring \
@@ -146,13 +139,13 @@ function install_snap_packages() {
         vlc \
         indicator-sensors
 
-    snap install --classic datagrip
-    snap install --classic discord
-    snap install --classic phpstorm
-    snap install --classic skype
-    snap install --classic slack
-    snap install --classic sublime-text
-    snap install --classic ngrok
+    sudo snap install --classic datagrip
+    sudo snap install --classic discord
+    sudo snap install --classic phpstorm
+    sudo snap install --classic skype
+    sudo snap install --classic slack
+    sudo snap install --classic sublime-text
+    sudo snap install --classic ngrok
 }
 
 function install_deb_packages() {
@@ -176,25 +169,25 @@ function install_deb_packages() {
 function install_docker() {
     echo_info "Install Docker & Docker Compose"
 
-    apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    apt-key fingerprint 0EBFCD88
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    apt-get update
-    apt-get install -y docker-ce docker-ce-cli containerd.io
+    sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    sudo apt-key fingerprint 0EBFCD88
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt-get update
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
-    curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
 
-    usermod -aG docker ${USERNAME}
+    sudo usermod -aG docker ${USERNAME}
 }
 
 function clean_apt() {
     echo_info "Clean APT"
 
-    apt autoremove -y
-    apt autoclean -y
-    apt clean -y
+    sudo apt autoremove -y
+    sudo apt autoclean -y
+    sudo apt clean -y
 }
 
 function setup_tilix() {
