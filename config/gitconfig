@@ -5,9 +5,6 @@
 [github]
     user = babeuloula
 
-[protocol]
-    version = 2
-
 [pager]
     branch = cat
 
