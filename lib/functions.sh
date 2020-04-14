@@ -115,6 +115,7 @@ function install_apt_packages() {
         meld \
         mysql-workbench \
         nano \
+        python-pygments \
         rclone \
         ssh \
         tilix \
