@@ -9,7 +9,7 @@ alias -- -="cd -"
 
 # Shortcuts
 alias c="clear"
-alias dl="cd ~/Downloads"
+alias dl="cd ~/Téléchargements"
 alias g="git"
 alias h="history"
 
@@ -29,6 +29,7 @@ alias l="ls -lFh ${colorflag}"
 
 # List all files colorized in long format, including dot files
 alias la="ls -lAFh ${colorflag}"
+alias ll="la"
 
 # List only directories
 alias ld="ls -lFh ${colorflag} | grep --color=never '^d'"
