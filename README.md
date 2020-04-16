@@ -16,11 +16,16 @@ curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh 
 - [EditThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg)
 - [Refined GitHub](https://chrome.google.com/webstore/detail/refined-github/hlepfoohegkhhmjieoechaddaejaokhf)
 - [Sight](https://chrome.google.com/webstore/detail/sight/epmaefhielclhlnmjofcdapbeepkmggh)
+- [stylus](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
 - [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
 
 ## Tampermonkey scripts
 
-- [Github Dark Script](https://github.com/StylishThemes/GitHub-Dark-Script)
+- Dark Scripts
+	- [Github](https://github.com/StylishThemes/GitHub-Dark-Script)
+	- [Gitlab](https://gitlab.com/vednoc/dark-gitlab)
+	- [Wikipedia](https://github.com/StylishThemes/Wikipedia-Dark)
+	- [StackOverflow](https://github.com/StylishThemes/StackOverflow-Dark)
 - [Cyprille's scripts](https://github.com/cyprille/tampermonkey-scripts)
 	- Github show hidden conversations
 - [Github Userscripts](https://github.com/Mottie/GitHub-userscripts)
