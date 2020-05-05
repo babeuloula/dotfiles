@@ -49,3 +49,4 @@ curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh 
 	- [Symfony Support](https://plugins.jetbrains.com/plugin/7219-symfony-support)
 	- [.ignore](https://plugins.jetbrains.com/plugin/7495--ignore)
 	- [String Manipulation](https://plugins.jetbrains.com/plugin/2162-string-manipulation)
+	- [NEON support](https://plugins.jetbrains.com/plugin/7060-neon-support/)
