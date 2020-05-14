@@ -154,8 +154,8 @@ function install_deb_packages() {
     echo_info "Install DEB packages:"
 
     echo_replace "${GREEN} - Boost Note... ${RESET}"
-    readonly BOOSTNOTE_DEB="boostnote_0.14.0_amd64.deb"
-    wget -q "https://github.com/BoostIO/boost-releases/releases/download/v0.14.0/${BOOSTNOTE_DEB}"
+    readonly BOOSTNOTE_DEB="boost-note-linux.deb"
+    wget -q "https://github.com/BoostIO/BoostNote.next/releases/latest/download/${BOOSTNOTE_DEB}"
     sudo dpkg -i ${BOOSTNOTE_DEB}
     rm ${BOOSTNOTE_DEB}
     echo_success " - Boost Note OK"
