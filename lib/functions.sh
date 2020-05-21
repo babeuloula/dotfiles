@@ -201,7 +201,7 @@ function setup_tilix() {
 function setup_zsh() {
     echo_info "Setting up zsh"
 
-    sudo chsh -s /bin/zsh
+    chsh -s /bin/zsh
     cd "/home/${USERNAME}"
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
