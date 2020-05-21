@@ -10,7 +10,7 @@ Inspired by:
 curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh | bash --
 ```
 
-## Chrome extension
+## Chrome extensions
 
 - [Adblocks](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb)
 - [EditThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg)
@@ -27,12 +27,12 @@ curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh 
 	- [Wikipedia](https://github.com/StylishThemes/Wikipedia-Dark)
 	- [StackOverflow](https://github.com/StylishThemes/StackOverflow-Dark)
 - [Cyprille's scripts](https://github.com/cyprille/tampermonkey-scripts)
-	- Github show hidden conversations
+	- [Github show hidden conversations](https://raw.githubusercontent.com/cyprille/tampermonkey-scripts/master/scripts/github-show-hidden-conversations.user.js)
 - [Github Userscripts](https://github.com/Mottie/GitHub-userscripts)
-	- GitHub Diff Files Filter
-	- GitHub Indent Comments
-	- GitHub Table of Contents
-	- GitHub Toggle Diff Comments
+	- [GitHub Diff Files Filter](https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-diff-files-filter.user.js)
+	- [GitHub Indent Comments](https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-indent-comments.user.js)
+	- [GitHub Table of Contents](https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-toc.user.js)
+	- [GitHub Toggle Diff Comments](https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-toggle-diff-comments.user.js)
 
 ## PhpStorm
 
