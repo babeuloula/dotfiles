@@ -105,6 +105,7 @@ function install_apt_packages() {
         fonts-powerline \
         git \
         gnome-tweaks \
+        gnupg2 \
         google-chrome-stable \
         htop \
         httpie \
