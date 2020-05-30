@@ -98,6 +98,7 @@ function install_apt_packages() {
 
     sudo apt update
     sudo apt install -y \
+        bat \
         bash-completion \
         compizconfig-settings-manager \
         dia \
