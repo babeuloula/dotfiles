@@ -51,3 +51,4 @@ curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh 
 	- [String Manipulation](https://plugins.jetbrains.com/plugin/2162-string-manipulation)
 	- [NEON support](https://plugins.jetbrains.com/plugin/7060-neon-support/)
 	- [PlantUML integration](https://plugins.jetbrains.com/plugin/7017-plantuml-integration)
+	- [Grazie](https://plugins.jetbrains.com/plugin/12175-grazie)
