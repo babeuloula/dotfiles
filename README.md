@@ -18,6 +18,7 @@ curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh 
 - [Sight](https://chrome.google.com/webstore/detail/sight/epmaefhielclhlnmjofcdapbeepkmggh)
 - [stylus](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
 - [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+- [QookieFix](https://chrome.google.com/webstore/detail/qookiefix/gkfjmfmjckaabogdpclnahenmcijplpe)
 
 ## Tampermonkey scripts
 
