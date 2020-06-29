@@ -65,3 +65,6 @@ alias node="node13"
 
 # NPM
 alias npm="docker_node npm"
+
+# Hollywood
+alias hollywood="docker run --rm -it --name hollywood babeuloula/hollywood:latest hollywood"
