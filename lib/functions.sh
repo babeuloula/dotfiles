@@ -158,14 +158,14 @@ function install_deb_packages() {
     echo_replace "${GREEN} - Boost Note... ${RESET}"
     readonly BOOSTNOTE_DEB="boost-note-linux.deb"
     wget -q "https://github.com/BoostIO/BoostNote.next/releases/latest/download/${BOOSTNOTE_DEB}"
-    sudo dpkg -i ${BOOSTNOTE_DEB}
+    sudo apt-get install -y -f ${BOOSTNOTE_DEB}
     rm ${BOOSTNOTE_DEB}
     echo_success " - Boost Note OK"
 
     echo_replace "${GREEN} - RcloneTray... ${RESET}"
     readonly RCLONETRAY_DEB="rclonetray_1.0.0_amd64.deb"
     wget -q "https://github.com/dimitrov-adrian/RcloneTray/releases/download/v1.0.0/${RCLONETRAY_DEB}"
-    sudo dpkg -i ${RCLONETRAY_DEB}
+    sudo apt-get install -y -f ${RCLONETRAY_DEB}
     rm ${RCLONETRAY_DEB}
     echo_success " - RcloneTray OK"
 }
@@ -180,7 +180,7 @@ function install_docker() {
     sudo apt-get update
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.27.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 
     sudo usermod -aG docker ${USERNAME}
@@ -211,22 +211,35 @@ function setup_zsh() {
 
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-    cp ${DOTFILES_CONFIG_DIR}/aliases /home/${USERNAME}/.aliases
-    cp ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USERNAME}/.dockerfunc
-    cp ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
-    cp ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USERNAME}/.zsh_profile
-    cp ${DOTFILES_CONFIG_DIR}/zshrc /home/${USERNAME}/.zshrc
+    rm /home/${USERNAME}/.aliases
+    ln -s ${DOTFILES_CONFIG_DIR}/aliases /home/${USERNAME}/.aliases
+
+    rm /home/${USERNAME}/.dockerfunc
+    ln -s ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USERNAME}/.dockerfunc
+
+    rm /home/${USERNAME}/.functions
+    ln -s ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
+
+    rm /home/${USERNAME}/.zsh_profile
+    ln -s ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USERNAME}/.zsh_profile
+
+    rm /home/${USERNAME}/.zshrc
+    ln -s ${DOTFILES_CONFIG_DIR}/zshrc /home/${USERNAME}/.zshrc
 }
 
 function setup_nano() {
     echo_info "Setting up nano"
 
-    cp ${DOTFILES_CONFIG_DIR}/nanorc /home/${USERNAME}/.nanorc
+    rm /home/${USERNAME}/.nanorc
+    ln -s ${DOTFILES_CONFIG_DIR}/nanorc /home/${USERNAME}/.nanorc
 }
 
 function setup_git() {
     echo_info "Setting up git"
 
-    cp ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USERNAME}/.gitignore_global
-    cp ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USERNAME}/.gitconfig
+    rm /home/${USERNAME}/.gitignore_global
+    ln -s ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USERNAME}/.gitignore_global
+
+    rm /home/${USERNAME}/.gitconfig
+    ln -s ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USERNAME}/.gitconfig
 }
