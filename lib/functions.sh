@@ -158,14 +158,14 @@ function install_deb_packages() {
     echo_replace "${GREEN} - Boost Note... ${RESET}"
     readonly BOOSTNOTE_DEB="boost-note-linux.deb"
     wget -q "https://github.com/BoostIO/BoostNote.next/releases/latest/download/${BOOSTNOTE_DEB}"
-    sudo apt-get install -y -f ${BOOSTNOTE_DEB}
+    sudo apt-get install -y -f ./${BOOSTNOTE_DEB}
     rm ${BOOSTNOTE_DEB}
     echo_success " - Boost Note OK"
 
     echo_replace "${GREEN} - RcloneTray... ${RESET}"
     readonly RCLONETRAY_DEB="rclonetray_1.0.0_amd64.deb"
     wget -q "https://github.com/dimitrov-adrian/RcloneTray/releases/download/v1.0.0/${RCLONETRAY_DEB}"
-    sudo apt-get install -y -f ${RCLONETRAY_DEB}
+    sudo apt-get install -y -f ./${RCLONETRAY_DEB}
     rm ${RCLONETRAY_DEB}
     echo_success " - RcloneTray OK"
 }
