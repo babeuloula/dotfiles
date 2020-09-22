@@ -123,6 +123,8 @@ function install_apt_packages() {
         python-pygments \
         pv \
         rclone \
+        snap \
+        snapd \
         ssh \
         tilix \
         unzip \
