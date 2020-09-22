@@ -119,7 +119,6 @@ function install_apt_packages() {
         less \
         make \
         meld \
-        mysql-workbench \
         nano \
         python-pygments \
         pv \
@@ -171,7 +170,14 @@ function install_deb_packages() {
     wget -q "https://github.com/dimitrov-adrian/RcloneTray/releases/download/v1.0.0/${RCLONETRAY_DEB}"
     sudo apt-get install -y -f ./${RCLONETRAY_DEB}
     rm ${RCLONETRAY_DEB}
-    echo_success " - RcloneTray OK"
+    echo_success " - RcloneTray OK" 
+
+    echo_replace "${GREEN} - MySQL Workbench... ${RESET}"
+    readonly MYSQL_WB_DEB="mysql-workbench-community_8.0.21-1ubuntu20.04_amd64.deb"
+    wget -q "https://dev.mysql.com/get/Downloads/MySQLGUITools/${MYSQL_WB_DEB}"
+    sudo apt-get install -y -f ./${MYSQL_WB_DEB}
+    rm ${MYSQL_WB_DEB}
+    echo_success " - MySQL Workbench OK"
 }
 
 function install_docker() {
