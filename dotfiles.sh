@@ -25,7 +25,7 @@ function main() {
     setup_git
     setup_nano
 
-    block_success "Installation finished!"
+    block_success "Installation finished! Don't forget to restart your computer."
 }
 
 main $0 "$@"
