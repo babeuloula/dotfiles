@@ -137,16 +137,15 @@ function install_apt_packages() {
 function install_snap_packages() {
     echo_info "Install SNAP packages"
 
-    sudo snap install \
-        gimp \
-        gitkraken \
-        mailspring \
-        postman \
-        spotify \
-        termius-app \
-        tldr \
-        vlc \
-        indicator-sensors
+    sudo snap install gimp
+    sudo snap install gitkraken
+    sudo snap install mailspring
+    sudo snap install postman
+    sudo snap install spotify
+    sudo snap install termius-app
+    sudo snap install tldr
+    sudo snap install vlc
+    sudo snap install indicator-sensors
 
     sudo snap install --classic datagrip
     sudo snap install --classic discord
