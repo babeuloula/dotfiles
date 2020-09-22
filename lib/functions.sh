@@ -101,7 +101,7 @@ function install_apt_packages() {
 
     sudo apt update
     sudo apt install -y \
-        balena-etcher-electron
+        balena-etcher-electron \
         bat \
         bash-completion \
         compizconfig-settings-manager \
