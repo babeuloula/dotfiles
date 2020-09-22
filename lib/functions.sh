@@ -137,22 +137,52 @@ function install_apt_packages() {
 function install_snap_packages() {
     echo_info "Install SNAP packages"
 
-    sudo snap install gimp
-    sudo snap install gitkraken
-    sudo snap install mailspring
-    sudo snap install postman
-    sudo snap install spotify
-    sudo snap install termius-app
-    sudo snap install tldr
-    sudo snap install vlc
-    sudo snap install indicator-sensors
+    echo_info " - GIMP"
+    sudo snap install --classic gimp
+    
+    echo_info " - GitKraken"
+    sudo snap install --classic gitkraken
+    
+    echo_info " - MailSpring"
+    sudo snap install --classic mailspring
+    
+    echo_info " - Postman"
+    sudo snap install --classic postman
+    
+    echo_info " - Spotify"
+    sudo snap install --classic spotify
+    
+    echo_info " - Termius"
+    sudo snap install --classic termius-app
+    
+    echo_info " - TLDR"
+    sudo snap install --classic tldr
+    
+    echo_info " - VLC"
+    sudo snap install --classic vlc
+    
+    echo_info " - Indicator Sensors"
+    sudo snap install --classic indicator-sensors
 
+    echo_info " - DataGrip"
     sudo snap install --classic datagrip
+    
+    echo_info " - Discord"
     sudo snap install --classic discord
+    
+    echo_info " - PhpStorm"
     sudo snap install --classic phpstorm
+    
+    echo_info " - Skype"
     sudo snap install --classic skype
+    
+    echo_info " - Slack"
     sudo snap install --classic slack
+    
+    echo_info " - Sublime Text"
     sudo snap install --classic sublime-text
+    
+    echo_info " - Ngrok"
     sudo snap install --classic ngrok
 }
 
