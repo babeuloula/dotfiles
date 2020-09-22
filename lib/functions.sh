@@ -155,9 +155,6 @@ function install_snap_packages() {
     echo_info " - Termius"
     sudo snap install --classic termius-app
     
-    echo_info " - TLDR"
-    sudo snap install --classic tldr
-    
     echo_info " - VLC"
     sudo snap install --classic vlc
     
