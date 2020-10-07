@@ -249,35 +249,52 @@ function setup_zsh() {
 
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-    rm /home/${USERNAME}/.aliases
+    if [[ -f "/home/${USERNAME}/.aliases" ]]; then
+        rm /home/${USERNAME}/.aliases
+    fi
     ln -s ${DOTFILES_CONFIG_DIR}/aliases /home/${USERNAME}/.aliases
 
-    rm /home/${USERNAME}/.dockerfunc
+
+    if [[ -f "/home/${USERNAME}/.dockerfunc" ]]; then
+        rm /home/${USERNAME}/.dockerfunc
+    fi    
     ln -s ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USERNAME}/.dockerfunc
 
-    rm /home/${USERNAME}/.functions
+    if [[ -f "/home/${USERNAME}/.functions" ]]; then
+        rm /home/${USERNAME}/.functions
+    fi
     ln -s ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
 
-    rm /home/${USERNAME}/.zsh_profile
+    if [[ -f "/home/${USERNAME}/.zsh_profile" ]]; then
+        rm /home/${USERNAME}/.zsh_profile
+    fi
     ln -s ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USERNAME}/.zsh_profile
 
-    rm /home/${USERNAME}/.zshrc
+    if [[ -f "/home/${USERNAME}/.zshrc" ]]; then
+        rm /home/${USERNAME}/.zshrc
+    fi
     ln -s ${DOTFILES_CONFIG_DIR}/zshrc /home/${USERNAME}/.zshrc
 }
 
 function setup_nano() {
     echo_info "Setting up nano"
 
-    rm /home/${USERNAME}/.nanorc
+    if [[ -f "/home/${USERNAME}/.nanorc" ]]; then
+        rm /home/${USERNAME}/.nanorc
+    fi
     ln -s ${DOTFILES_CONFIG_DIR}/nanorc /home/${USERNAME}/.nanorc
 }
 
 function setup_git() {
     echo_info "Setting up git"
 
-    rm /home/${USERNAME}/.gitignore_global
+    if [[ -f "/home/${USERNAME}/.gitignore_global" ]]; then
+        rm /home/${USERNAME}/.gitignore_global
+    fi    
     ln -s ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USERNAME}/.gitignore_global
 
-    rm /home/${USERNAME}/.gitconfig
+    if [[ -f "/home/${USERNAME}/.gitconfig" ]]; then
+        rm /home/${USERNAME}/.gitconfig
+    fi
     ln -s ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USERNAME}/.gitconfig
 }
