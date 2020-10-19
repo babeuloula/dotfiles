@@ -101,6 +101,7 @@ function install_apt_packages() {
 
     sudo apt update
     sudo apt install -y \
+        ansible \
         balena-etcher-electron \
         bat \
         bash-completion \
