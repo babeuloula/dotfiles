@@ -57,11 +57,11 @@ alias composer='docker run --rm -it --name composer_docker --user ${UID}:${GID} 
 alias symfony='docker run --rm -it --name symfony_docker --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp babeuloula/symfony:latest symfony'
 
 # NodeJS
-alias docker_node='docker run --rm -it --name node_13 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:13-alpine'
-alias node13="docker_node node"
+alias docker_node='docker run --rm -it --name node_14 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:14-alpine'
+alias node14="docker_node node"
 alias node12='docker run --rm -it --name node_12 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:12-alpine node'
 alias node10='docker run --rm -it --name node_10 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:10-alpine node'
-alias node="node13"
+alias node="node14"
 
 # NPM
 alias npm="docker_node npm"
