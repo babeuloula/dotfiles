@@ -16,6 +16,8 @@ alias h="history"
 # Git
 alias gl="g l" # git log
 alias gp="git pull"
+alias gc="git checkout"
+alias gb="git branch"
 
 # Docker
 alias dc="docker-compose"
