@@ -18,6 +18,7 @@ alias gl="g l" # git log
 alias gp="git pull"
 alias gc="git checkout"
 alias gb="git branch"
+alias gs="git status"
 
 # Docker
 alias dc="docker-compose"
