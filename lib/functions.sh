@@ -127,6 +127,7 @@ function install_apt_packages() {
         snap \
         snapd \
         ssh \
+        stacer \
         tilix \
         unzip \
         unrar \
