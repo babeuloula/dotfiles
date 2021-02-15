@@ -107,6 +107,7 @@ function install_apt_packages() {
         bash-completion \
         compizconfig-settings-manager \
         dia \
+        ffmpeg \
         firefox \
         fonts-powerline \
         git \
@@ -129,6 +130,7 @@ function install_apt_packages() {
         ssh \
         stacer \
         tilix \
+        ubuntu-restricted-extras \
         unzip \
         unrar \
         variety \
