@@ -119,6 +119,7 @@ function install_apt_packages() {
         imagemagick \
         jq \
         less \
+        libavcodec-extra \
         make \
         meld \
         nano \
@@ -130,7 +131,6 @@ function install_apt_packages() {
         ssh \
         stacer \
         tilix \
-        ubuntu-restricted-extras \
         unzip \
         unrar \
         variety \
