@@ -13,14 +13,11 @@ trap trap_exit EXIT
 
 function main() {
     install_apt_packages
-    install_snap_packages
-    install_deb_packages
 
     install_docker
 
     clean_apt
 
-    setup_tilix
     setup_zsh
     setup_git
     setup_nano
