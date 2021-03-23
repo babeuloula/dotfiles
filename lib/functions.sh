@@ -102,18 +102,13 @@ function install_apt_packages() {
     sudo apt update
     sudo apt install -y \
         ansible \
-        balena-etcher-electron \
         bat \
         bash-completion \
         compizconfig-settings-manager \
-        dia \
         ffmpeg \
-        firefox \
         fonts-powerline \
         git \
-        gnome-tweaks \
         gnupg2 \
-        google-chrome-stable \
         htop \
         httpie \
         imagemagick \
@@ -121,95 +116,15 @@ function install_apt_packages() {
         less \
         libavcodec-extra \
         make \
-        meld \
         nano \
         python-pygments \
         pv \
-        rclone \
-        snap \
-        snapd \
         ssh \
         stacer \
-        tilix \
         unzip \
         unrar \
-        variety \
         zsh \
         --no-install-recommends
-}
-
-function install_snap_packages() {
-    echo_info "Install SNAP packages"
-
-    echo_info " - GIMP"
-    sudo snap install --classic gimp
-    
-    echo_info " - GitKraken"
-    sudo snap install --classic gitkraken
-    
-    echo_info " - MailSpring"
-    sudo snap install --classic mailspring
-    
-    echo_info " - Postman"
-    sudo snap install --classic postman
-    
-    echo_info " - Spotify"
-    sudo snap install --classic spotify
-    
-    echo_info " - Termius"
-    sudo snap install --classic termius-app
-    
-    echo_info " - VLC"
-    sudo snap install --classic vlc
-    
-    echo_info " - Indicator Sensors"
-    sudo snap install --classic indicator-sensors
-
-    echo_info " - DataGrip"
-    sudo snap install --classic datagrip
-    
-    echo_info " - Discord"
-    sudo snap install --classic discord
-    
-    echo_info " - PhpStorm"
-    sudo snap install --classic phpstorm
-    
-    echo_info " - Skype"
-    sudo snap install --classic skype
-    
-    echo_info " - Slack"
-    sudo snap install --classic slack
-    
-    echo_info " - Sublime Text"
-    sudo snap install --classic sublime-text
-    
-    echo_info " - Ngrok"
-    sudo snap install --classic ngrok
-}
-
-function install_deb_packages() {
-    echo_info "Install DEB packages:"
-
-    echo_replace "${GREEN} - Boost Note... ${RESET}"
-    readonly BOOSTNOTE_DEB="boost-note-linux.deb"
-    wget -q "https://github.com/BoostIO/BoostNote.next/releases/latest/download/${BOOSTNOTE_DEB}"
-    sudo apt-get install -y -f ./${BOOSTNOTE_DEB}
-    rm ${BOOSTNOTE_DEB}
-    echo_success " - Boost Note OK"
-
-    echo_replace "${GREEN} - RcloneTray... ${RESET}"
-    readonly RCLONETRAY_DEB="rclonetray_1.0.0_amd64.deb"
-    wget -q "https://github.com/dimitrov-adrian/RcloneTray/releases/download/v1.0.0/${RCLONETRAY_DEB}"
-    sudo apt-get install -y -f ./${RCLONETRAY_DEB}
-    rm ${RCLONETRAY_DEB}
-    echo_success " - RcloneTray OK" 
-
-    echo_replace "${GREEN} - MySQL Workbench... ${RESET}"
-    readonly MYSQL_WB_DEB="mysql-workbench-community_8.0.21-1ubuntu20.04_amd64.deb"
-    wget -q "https://dev.mysql.com/get/Downloads/MySQLGUITools/${MYSQL_WB_DEB}"
-    sudo apt-get install -y -f ./${MYSQL_WB_DEB}
-    rm ${MYSQL_WB_DEB}
-    echo_success " - MySQL Workbench OK"
 }
 
 function install_docker() {
@@ -234,12 +149,6 @@ function clean_apt() {
     sudo apt autoremove -y
     sudo apt autoclean -y
     sudo apt clean -y
-}
-
-function setup_tilix() {
-    echo_info "Setting up Tilix"
-
-    dconf load /com/gexperts/Tilix/ < ${DOTFILES_CONFIG_DIR}/tilix.conf
 }
 
 function setup_zsh() {
