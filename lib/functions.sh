@@ -149,59 +149,59 @@ function setup_zsh() {
     echo_info "Setting up zsh"
 
     chsh -s /bin/zsh
-    cd "/home/${USERNAME}"
+    cd "/home/${USER}"
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-    wget -P /home/${USERNAME}/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
+    wget -P /home/${USER}/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
 
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-    if [[ -f "/home/${USERNAME}/.aliases" ]]; then
-        rm /home/${USERNAME}/.aliases
+    if [[ -f "/home/${USER}/.aliases" ]]; then
+        rm /home/${USER}/.aliases
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/aliases /home/${USERNAME}/.aliases
+    ln -s ${DOTFILES_CONFIG_DIR}/aliases /home/${USER}/.aliases
 
 
-    if [[ -f "/home/${USERNAME}/.dockerfunc" ]]; then
-        rm /home/${USERNAME}/.dockerfunc
+    if [[ -f "/home/${USER}/.dockerfunc" ]]; then
+        rm /home/${USER}/.dockerfunc
     fi    
-    ln -s ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USERNAME}/.dockerfunc
+    ln -s ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USER}/.dockerfunc
 
-    if [[ -f "/home/${USERNAME}/.functions" ]]; then
-        rm /home/${USERNAME}/.functions
+    if [[ -f "/home/${USER}/.functions" ]]; then
+        rm /home/${USER}/.functions
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
+    ln -s ${DOTFILES_CONFIG_DIR}/functions /home/${USER}/.functions
 
-    if [[ -f "/home/${USERNAME}/.zsh_profile" ]]; then
-        rm /home/${USERNAME}/.zsh_profile
+    if [[ -f "/home/${USER}/.zsh_profile" ]]; then
+        rm /home/${USER}/.zsh_profile
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USERNAME}/.zsh_profile
+    ln -s ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USER}/.zsh_profile
 
-    if [[ -f "/home/${USERNAME}/.zshrc" ]]; then
-        rm /home/${USERNAME}/.zshrc
+    if [[ -f "/home/${USER}/.zshrc" ]]; then
+        rm /home/${USER}/.zshrc
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/zshrc /home/${USERNAME}/.zshrc
+    ln -s ${DOTFILES_CONFIG_DIR}/zshrc /home/${USER}/.zshrc
 }
 
 function setup_nano() {
     echo_info "Setting up nano"
 
-    if [[ -f "/home/${USERNAME}/.nanorc" ]]; then
-        rm /home/${USERNAME}/.nanorc
+    if [[ -f "/home/${USER}/.nanorc" ]]; then
+        rm /home/${USER}/.nanorc
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/nanorc /home/${USERNAME}/.nanorc
+    ln -s ${DOTFILES_CONFIG_DIR}/nanorc /home/${USER}/.nanorc
 }
 
 function setup_git() {
     echo_info "Setting up git"
 
-    if [[ -f "/home/${USERNAME}/.gitignore_global" ]]; then
-        rm /home/${USERNAME}/.gitignore_global
+    if [[ -f "/home/${USER}/.gitignore_global" ]]; then
+        rm /home/${USER}/.gitignore_global
     fi    
-    ln -s ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USERNAME}/.gitignore_global
+    ln -s ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USER}/.gitignore_global
 
-    if [[ -f "/home/${USERNAME}/.gitconfig" ]]; then
-        rm /home/${USERNAME}/.gitconfig
+    if [[ -f "/home/${USER}/.gitconfig" ]]; then
+        rm /home/${USER}/.gitconfig
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USERNAME}/.gitconfig
+    ln -s ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USER}/.gitconfig
 }
