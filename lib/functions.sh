@@ -11,7 +11,7 @@ readonly PURPLE='\033[0;35m'
 readonly CYAN='\033[0;36m'
 readonly WHITE='\033[0;37m'
 
-readonly DOTFILES_CONFIG_DIR="/home/${USERNAME}/.dotfiles/config"
+readonly DOTFILES_CONFIG_DIR="/home/${USER}/.dotfiles/config"
 
 function ask_value() {
     local message=$1
