@@ -72,3 +72,6 @@ alias npm="docker_node npm"
 
 # Hollywood
 alias hollywood="docker run --rm -it --name hollywood_${RANDOM} babeuloula/hollywood:latest hollywood"
+
+# Python
+alias python="python3"
