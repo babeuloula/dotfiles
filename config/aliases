@@ -71,4 +71,4 @@ alias node="node14"
 alias npm="docker_node npm"
 
 # Hollywood
-alias hollywood="docker run --rm -it --name hollywood babeuloula/hollywood:latest hollywood"
+alias hollywood="docker run --rm -it --name hollywood_${RANDOM} babeuloula/hollywood:latest hollywood"
