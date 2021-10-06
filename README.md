@@ -27,7 +27,6 @@ curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh 
 	- [Gitlab](https://gitlab.com/vednoc/dark-gitlab)
 	- [Wikipedia](https://github.com/StylishThemes/Wikipedia-Dark)
 	- [StackOverflow](https://github.com/StylishThemes/StackOverflow-Dark)
-	- [WhatsApp](https://userstyles.org/styles/142096/dark-whatsapp-by-vednoc)
 - [Cyprille's scripts](https://github.com/cyprille/tampermonkey-scripts)
 	- [Github show hidden conversations](https://raw.githubusercontent.com/cyprille/tampermonkey-scripts/master/scripts/github-show-hidden-conversations.user.js)
 - [Github Userscripts](https://github.com/Mottie/GitHub-userscripts)
