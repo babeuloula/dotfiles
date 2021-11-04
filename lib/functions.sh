@@ -105,6 +105,11 @@ function install_apt_packages() {
     wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
     cat signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
     echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+    
+    # Sublim Text
+    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+    sudo apt-get install apt-transport-https
+    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
     sudo apt update
     sudo apt install -y \
@@ -138,6 +143,7 @@ function install_apt_packages() {
         snapd \
         ssh \
         stacer \
+        sublime-text \
         tilix \
         unzip \
         unrar \
@@ -187,9 +193,6 @@ function install_snap_packages() {
     
     echo_info " - Slack"
     sudo snap install --classic slack
-    
-    echo_info " - Sublime Text"
-    sudo snap install --classic sublime-text
     
     echo_info " - Ngrok"
     sudo snap install --classic ngrok
