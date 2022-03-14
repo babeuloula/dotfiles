@@ -135,6 +135,7 @@ function install_apt_packages() {
         make \
         meld \
         nano \
+        p7zip-full \
         python-pygments \
         pv \
         rclone \
