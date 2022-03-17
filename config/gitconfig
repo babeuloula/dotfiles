@@ -72,3 +72,9 @@
 
 [push]
     default = simple
+
+[fetch]
+    prunne = true
+
+[pull]
+    rebase = true
