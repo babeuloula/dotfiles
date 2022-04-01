@@ -23,8 +23,6 @@ curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh 
 ## Tampermonkey scripts
 
 - Dark Scripts
-	- [Github](https://github.com/StylishThemes/GitHub-Dark)
-	- [Gitlab](https://gitlab.com/vednoc/dark-gitlab)
 	- [Wikipedia](https://github.com/StylishThemes/Wikipedia-Dark)
 	- [StackOverflow](https://github.com/StylishThemes/StackOverflow-Dark)
 - [Cyprille's scripts](https://github.com/cyprille/tampermonkey-scripts)
