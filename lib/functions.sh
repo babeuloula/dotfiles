@@ -114,7 +114,6 @@ function install_apt_packages() {
     sudo apt update
     sudo apt install -y \
         ansible \
-        balena-etcher-electron \
         bat \
         bash-completion \
         compizconfig-settings-manager \
@@ -162,9 +161,6 @@ function install_snap_packages() {
     echo_info " - GitKraken"
     sudo snap install --classic gitkraken
     
-    echo_info " - MailSpring"
-    sudo snap install --classic mailspring
-    
     echo_info " - Postman"
     sudo snap install --classic postman
     
@@ -188,10 +184,7 @@ function install_snap_packages() {
     
     echo_info " - PhpStorm"
     sudo snap install --classic phpstorm
-    
-    echo_info " - Skype"
-    sudo snap install --classic skype
-    
+        
     echo_info " - Slack"
     sudo snap install --classic slack
     
@@ -201,27 +194,6 @@ function install_snap_packages() {
 
 function install_deb_packages() {
     echo_info "Install DEB packages:"
-
-    echo_replace "${GREEN} - Boost Note... ${RESET}"
-    readonly BOOSTNOTE_DEB="boost-note-linux.deb"
-    wget -q "https://github.com/BoostIO/BoostNote.next/releases/latest/download/${BOOSTNOTE_DEB}"
-    sudo apt-get install -y -f ./${BOOSTNOTE_DEB}
-    rm ${BOOSTNOTE_DEB}
-    echo_success " - Boost Note OK"
-
-    echo_replace "${GREEN} - RcloneTray... ${RESET}"
-    readonly RCLONETRAY_DEB="rclonetray_1.0.0_amd64.deb"
-    wget -q "https://github.com/dimitrov-adrian/RcloneTray/releases/download/v1.0.0/${RCLONETRAY_DEB}"
-    sudo apt-get install -y -f ./${RCLONETRAY_DEB}
-    rm ${RCLONETRAY_DEB}
-    echo_success " - RcloneTray OK" 
-
-    echo_replace "${GREEN} - MySQL Workbench... ${RESET}"
-    readonly MYSQL_WB_DEB="mysql-workbench-community_8.0.21-1ubuntu20.04_amd64.deb"
-    wget -q "https://dev.mysql.com/get/Downloads/MySQLGUITools/${MYSQL_WB_DEB}"
-    sudo apt-get install -y -f ./${MYSQL_WB_DEB}
-    rm ${MYSQL_WB_DEB}
-    echo_success " - MySQL Workbench OK"
 }
 
 function install_docker() {
