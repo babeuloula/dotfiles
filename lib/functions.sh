@@ -136,7 +136,7 @@ function install_apt_packages() {
         meld \
         nano \
         p7zip-full \
-        python-pygments \
+        python3-pygments \
         pv \
         rclone \
         signal-desktop \
