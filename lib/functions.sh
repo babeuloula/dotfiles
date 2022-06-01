@@ -226,7 +226,7 @@ function install_minikube() {
     chmod +x minikube
     sudo mv ./minikube /usr/local/bin/minikube
     minikube version
-    minikube start --driver=none
+    minikube start
     minikube status
     minikube stop
 }
