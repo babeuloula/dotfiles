@@ -12,6 +12,7 @@ alias c="clear"
 alias dl="cd ~/Téléchargements"
 alias g="git"
 alias h="history"
+alias w="cd ~/Web"
 
 # Git
 alias gl="g l" # git log
