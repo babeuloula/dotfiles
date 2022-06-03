@@ -190,6 +190,9 @@ function install_snap_packages() {
     
     echo_info " - Ngrok"
     sudo snap install --classic ngrok
+    
+    echo_info " - Cheat"
+    sudo snap install --classic cheat
 }
 
 function install_deb_packages() {
