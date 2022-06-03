@@ -135,6 +135,7 @@ function install_apt_packages() {
         meld \
         nano \
         p7zip-full \
+        pavucontrol \
         python3-pygments \
         pv \
         rclone \
