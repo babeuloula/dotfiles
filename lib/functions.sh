@@ -146,6 +146,7 @@ function install_apt_packages() {
         stacer \
         sublime-text \
         tilix \
+        ubuntu-restricted-extras \
         unzip \
         unrar \
         variety \
