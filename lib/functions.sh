@@ -131,6 +131,7 @@ function install_apt_packages() {
         jq \
         less \
         libavcodec-extra \
+        libfuse2 \
         make \
         meld \
         nano \
