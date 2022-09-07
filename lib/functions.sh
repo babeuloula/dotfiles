@@ -145,7 +145,6 @@ function install_apt_packages() {
         snapd \
         ssh \
         stacer \
-        sublime-text \
         tilix \
         ubuntu-restricted-extras \
         unzip \
@@ -196,6 +195,9 @@ function install_snap_packages() {
     
     echo_info " - Cheat"
     sudo snap install --classic cheat
+    
+    echo_info " - VSCodium"
+    sudo snap install --classic codium
 }
 
 function install_deb_packages() {
