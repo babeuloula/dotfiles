@@ -77,6 +77,3 @@ alias hollywood="docker run --rm -it --name hollywood_${RANDOM} babeuloula/holly
 
 # Python
 alias python="python3"
-
-# VSCodium
-alias code="codium"

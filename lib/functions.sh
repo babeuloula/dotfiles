@@ -196,8 +196,8 @@ function install_snap_packages() {
     echo_info " - Cheat"
     sudo snap install --classic cheat
     
-    echo_info " - VSCodium"
-    sudo snap install --classic codium
+    echo_info " - VSCode"
+    sudo snap install --classic code
 }
 
 function install_deb_packages() {
