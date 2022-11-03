@@ -26,6 +26,7 @@ alias dc="docker-compose"
 alias dcps="docker-compose ps"
 alias d="docker"
 alias dps="docker ps"
+alias lzd="lazydocker"
 
 colorflag="--color"
 
