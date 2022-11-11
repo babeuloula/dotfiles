@@ -26,7 +26,7 @@ alias dc="docker-compose"
 alias dcps="docker-compose ps"
 alias d="docker"
 alias dps="docker ps"
-alias lzd="lazydocker"
+alias lzd="/home/${USERNAME}/.local/bin/lazydocker"
 
 colorflag="--color"
 
