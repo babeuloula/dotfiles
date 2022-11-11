@@ -222,7 +222,7 @@ function install_docker() {
     echo_info "Install LazyDocker"
     curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
     mkdir -p /home/${USERNAME}/.config/lazydocker
-    ln -s ${DOTFILES_CONFIG_DIR}/lazydocker.yml /home/${USERNAME}/.config/lazydocker/config.yml
+    cp ${DOTFILES_CONFIG_DIR}/lazydocker.yml /home/${USERNAME}/.config/lazydocker/config.yml
 }
 
 function install_minikube() {
