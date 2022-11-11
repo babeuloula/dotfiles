@@ -80,4 +80,4 @@ alias hollywood="docker run --rm -it --name hollywood_${RANDOM} babeuloula/holly
 alias python="python3"
 
 # Bat
-alias cat="bat"
+alias cat="batcat"
