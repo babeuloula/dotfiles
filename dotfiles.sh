@@ -17,7 +17,7 @@ function main() {
     install_deb_packages
 
     install_docker
-    // install_minikube
+    install_minikube
 
     clean_apt
 
