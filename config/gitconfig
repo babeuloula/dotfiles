@@ -72,3 +72,10 @@
 
 [push]
     default = simple
+    autoSetupRemote = true
+
+[fetch]
+    prune = true
+
+[pull]
+    rebase = true
