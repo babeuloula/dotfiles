@@ -22,6 +22,7 @@ alias gb="git branch"
 alias gs="git status"
 
 # Docker
+alias docker-compose="docker compose"
 alias dc="docker-compose"
 alias dcps="docker-compose ps"
 alias d="docker"
