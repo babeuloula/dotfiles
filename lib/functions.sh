@@ -213,26 +213,6 @@ function install_docker() {
     ln -s ${DOTFILES_CONFIG_DIR}/lazydocker.yml /home/${USERNAME}/.config/lazydocker/config.yml
 }
 
-function install_minikube() {
-    echo_info "Install Kubectl & Minikube"
-    
-    sudo apt-get update
-    sudo apt-get install -y apt-transport-https conntrack
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-    sudo apt-get update
-    sudo apt-get install -y kubectl
-    kubectl version --client=true --output=yaml
-    
-    curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    chmod +x minikube
-    sudo mv ./minikube /usr/local/bin/minikube
-    minikube version
-    minikube start
-    minikube status
-    minikube stop
-}
-
 function clean_apt() {
     echo_info "Clean APT"
 
