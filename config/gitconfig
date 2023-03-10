@@ -48,11 +48,6 @@
     local = yellow
     remote = green
 
-[color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
-
 [color "diff"]
     frag = magenta bold
     meta = yellow bold
@@ -66,6 +61,13 @@
 
 [diff]
     renames = copies
+    tool = meld
+
+[difftool]
+    prompt = false
+
+[difftool "meld"]
+    cmd = meld "$REMOTE" "$LOCAL"
 
 [merge]
     log = true
