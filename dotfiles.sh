@@ -25,6 +25,7 @@ function main() {
     setup_git
     setup_nano
     setup_variety
+    setup_psysh
 
     block_success "Installation finished! Don't forget to restart your computer."
 }

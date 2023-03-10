@@ -291,3 +291,16 @@ function setup_git() {
 function setup_variety() {
     sed -i '/^# Gnome 3, Unity*/a gsettings set org.gnome.desktop.background picture-uri-dark "file://$WP" 2> /dev/null' /home/$USER/.config/variety/scripts/set_wallpaper
 }
+
+function setup_psysh() {
+    mkdir -p /home/${USERNAME}/.psysh/config
+
+    # Install psysh
+    curl -L https://psysh.org/psysh -o /home/${USERNAME}/.psysh/psysh
+    chmod +x /home/${USERNAME}/.psysh/psysh
+
+    # Install PHP french manual
+    curl -L http://psysh.org/manual/fr/php_manual.sqlite -o /home/${USERNAME}/.psysh/php_manual.sqlite
+
+    ln -s ${DOTFILES_CONFIG_DIR}/psysh_config.php /home/${USERNAME}/.psysh/config/config.php
+}
