@@ -21,7 +21,7 @@ alias gp="git pull"
 alias gc="git checkout"
 alias gb="git branch"
 alias gs="git status"
-alias gd="git di"
+alias gd="git diff"
 alias gdt="git difftool"
 
 # Docker
