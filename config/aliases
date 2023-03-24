@@ -93,3 +93,7 @@ alias python="python3"
 
 # Bat
 alias cat="batcat"
+
+#IT Tools
+alias it-tools="docker run --rm -p 8888:80 --name it-tools -it corentinth/it-tools"
+alias itt="it-tools"
