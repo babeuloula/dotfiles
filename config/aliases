@@ -94,6 +94,10 @@ alias python="python3"
 # Bat
 alias cat="batcat"
 
-#IT Tools
+# IT Tools
 alias it-tools="docker run --rm -p 8888:80 --name it-tools -it corentinth/it-tools"
 alias itt="it-tools"
+
+# Terraform
+alias terraform="docker run -i -t hashicorp/terraform:latest"
+alias t="terraform"
