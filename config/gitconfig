@@ -59,16 +59,6 @@
     changed = green
     untracked = cyan
 
-[diff]
-    renames = copies
-    tool = meld
-
-[difftool]
-    prompt = false
-
-[difftool "meld"]
-    cmd = meld "$REMOTE" "$LOCAL"
-
 [merge]
     log = true
 
