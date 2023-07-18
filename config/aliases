@@ -13,6 +13,7 @@ alias c="clear"
 alias dl="cd ~/Téléchargements"
 alias g="git"
 alias h="history"
+alias w="cd ~/Web"
 
 # Git
 alias gl="g l" # git log
@@ -20,6 +21,8 @@ alias gp="git pull"
 alias gc="git checkout"
 alias gb="git branch"
 alias gs="git status"
+alias gd="git diff"
+alias gdt="git difftool"
 
 # Docker
 alias docker-compose="docker compose"
@@ -27,6 +30,7 @@ alias dc="docker-compose"
 alias dcps="docker-compose ps"
 alias d="docker"
 alias dps="docker ps"
+alias lzd="/home/${USERNAME}/.local/bin/lazydocker"
 
 colorflag="--color"
 
@@ -57,6 +61,13 @@ alias php7.3='docker run --rm -it --name php73_docker --user ${UID} -v "$(pwd)":
 alias php7.2='docker run --rm -it --name php72_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.2-cli-alpine php'
 alias php7.1='docker run --rm -it --name php71_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:7.1-cli-alpine php'
 alias php="php8.2"
+alias psysh='docker run --rm -it --name php82_psysh_docker_${RANDOM} --user ${UID} \
+    -v "$(pwd)":/usr/src/myapp \
+    -v "/home/$(whoami)/.psysh/psysh":/usr/local/sbin/psysh \
+    -v "/home/$(whoami)/.psysh/config":/.config/psysh \
+    -v "/home/$(whoami)/.psysh/php_manual.sqlite":/usr/local/share/psysh/php_manual.sqlite \
+    -w /usr/src/myapp php:8.2-cli-alpine \
+    psysh'
 
 # Composer
 alias composer='docker run --rm -it --name composer_docker --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp composer:latest composer'
@@ -79,3 +90,6 @@ alias python="python3"
 
 # Bat
 alias cat="batcat"
+
+# Terraform
+alias t="terraform"

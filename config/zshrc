@@ -26,3 +26,6 @@ export LANG=fr_FR.UTF-8
 if [[ -f $HOME/.zsh_profile ]]; then
     source $HOME/.zsh_profile
 fi
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform

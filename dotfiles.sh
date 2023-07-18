@@ -14,13 +14,15 @@ trap trap_exit EXIT
 function main() {
     install_apt_packages
 
-    install_docker
-
-    clean_apt
-
     setup_zsh
     setup_git
     setup_nano
+    setup_psysh
+
+    install_docker
+    install_terraform
+
+    clean_apt
 
     block_success "Installation finished! Don't forget to restart your computer."
 }

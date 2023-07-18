@@ -109,9 +109,11 @@ function install_apt_packages() {
         jq \
         less \
         libavcodec-extra \
+        libfuse2 \
         make \
         nano \
-        python-pygments \
+        p7zip-full \
+        python3-pygments \
         pv \
         ssh \
         stacer \
@@ -137,6 +139,23 @@ function install_docker() {
     curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
     mkdir -p /home/${USERNAME}/.config/lazydocker
     ln -s ${DOTFILES_CONFIG_DIR}/lazydocker.yml /home/${USERNAME}/.config/lazydocker/config.yml
+}
+
+function install_terraform() {
+    echo_info "Install Terraform"
+
+    sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+    wget -O- https://apt.releases.hashicorp.com/gpg | \
+        gpg --dearmor | \
+        sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    gpg --no-default-keyring \
+        --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+        --fingerprint
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+        https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+        sudo tee /etc/apt/sources.list.d/hashicorp.list
+    sudo apt update
+    sudo apt-get install terraform
 }
 
 function clean_apt() {
@@ -206,4 +225,17 @@ function setup_git() {
         rm /home/${USER}/.gitconfig
     fi
     ln -s ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USER}/.gitconfig
+}
+
+function setup_psysh() {
+    mkdir -p /home/${USERNAME}/.psysh/config
+
+    # Install psysh
+    curl -L https://psysh.org/psysh -o /home/${USERNAME}/.psysh/psysh
+    chmod +x /home/${USERNAME}/.psysh/psysh
+
+    # Install PHP french manual
+    curl -L http://psysh.org/manual/fr/php_manual.sqlite -o /home/${USERNAME}/.psysh/php_manual.sqlite
+
+    cp ${DOTFILES_CONFIG_DIR}/psysh_config.php /home/${USERNAME}/.psysh/config/config.php
 }
