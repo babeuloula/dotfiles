@@ -54,13 +54,13 @@
     new = green
     old = red
 
-[diff]
-    renames = copies
-
 [color "status"]
     added = yellow
     changed = green
     untracked = cyan
+
+[diff]
+    renames = copies
 
 [merge]
     log = true
