@@ -13,13 +13,6 @@ trap trap_exit EXIT
 
 function main() {
     install_apt_packages
-    install_snap_packages
-    install_deb_packages
-
-    install_docker
-    install_terraform
-
-    clean_apt
 
     setup_tilix
     setup_zsh
@@ -27,6 +20,14 @@ function main() {
     setup_nano
     setup_variety
     setup_psysh
+
+    install_docker
+    install_terraform
+
+    install_snap_packages
+    install_deb_packages
+
+    clean_apt
 
     block_success "Installation finished! Don't forget to restart your computer."
 }
