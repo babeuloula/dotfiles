@@ -21,14 +21,10 @@ function main() {
     setup_zsh
     setup_git
     setup_nano
-    setup_variety
     setup_psysh
 
     install_docker
     install_terraform
-
-    install_snap_packages
-    install_deb_packages
 
     clean_apt
 

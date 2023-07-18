@@ -113,7 +113,6 @@ function install_apt_packages() {
         make \
         nano \
         p7zip-full \
-        pavucontrol \
         python3-pygments \
         pv \
         ssh \
