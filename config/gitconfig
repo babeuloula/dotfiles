@@ -54,6 +54,9 @@
     new = green
     old = red
 
+[diff]
+    renames = copies
+
 [color "status"]
     added = yellow
     changed = green

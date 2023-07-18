@@ -14,10 +14,6 @@ trap trap_exit EXIT
 function main() {
     install_apt_packages
 
-    install_docker
-
-    clean_apt
-
     setup_zsh
     setup_git
     setup_nano
