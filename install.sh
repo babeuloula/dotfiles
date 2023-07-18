@@ -42,4 +42,5 @@ echo -e "${CYAN}Clone repo for installation.${RESET}" > /dev/tty
 git clone https://github.com/babeuloula/dotfiles.git ~/.dotfiles
 
 cd ~/.dotfiles
+git checkout server
 ./dotfiles.sh
