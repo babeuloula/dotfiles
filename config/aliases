@@ -100,3 +100,6 @@ alias itt="it-tools"
 
 # Terraform
 alias t="terraform"
+
+# Stripe
+alias stripe="docker run --rm -it stripe/stripe-cli:latest"
