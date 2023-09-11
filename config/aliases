@@ -23,6 +23,10 @@ alias gb="git branch"
 alias gs="git status"
 alias gd="git diff"
 alias gdt="git difftool"
+alias grm="git rebase main"
+alias gra="git rebase --abort"
+alias grc="git rebase --continue"
+alias grs="git rebase --skip"
 
 # Docker
 alias docker-compose="docker compose"
