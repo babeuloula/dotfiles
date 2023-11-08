@@ -96,7 +96,7 @@ alias hollywood="docker run --rm -it --name hollywood_${RANDOM} babeuloula/holly
 alias python="python3"
 
 # Bat
-alias cat="batcat"
+alias cat="batcat --paging=never"
 
 # IT Tools
 alias it-tools="docker run --rm -p 8888:80 --name it-tools -it corentinth/it-tools"
