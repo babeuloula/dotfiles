@@ -17,11 +17,12 @@ alias w="cd ~/Web"
 
 # Git
 alias gl="g l" # git log
-alias gp="git pull"
+alias gp="git fetch --all --tags && git pull"
 alias gc="git checkout"
 alias gb="git branch"
 alias gs="git status"
 alias gd="git diff"
+alias gcp="git cherry-pick"
 alias gdt="git difftool"
 alias grm="git rebase main"
 alias gra="git rebase --abort"
