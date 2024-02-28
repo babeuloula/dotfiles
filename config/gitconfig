@@ -61,6 +61,13 @@
 
 [diff]
     renames = copies
+    tool = meld
+
+[difftool]
+    prompt = false
+
+[difftool "nano"]
+    cmd = meld "$REMOTE" "$LOCAL"
 
 [merge]
     log = true

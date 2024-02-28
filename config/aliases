@@ -17,12 +17,17 @@ alias w="cd ~/Web"
 
 # Git
 alias gl="g l" # git log
-alias gp="git pull"
+alias gp="git fetch --all --tags && git pull"
 alias gc="git checkout"
 alias gb="git branch"
 alias gs="git status"
 alias gd="git diff"
+alias gcp="git cherry-pick"
 alias gdt="git difftool"
+alias grm="git rebase main"
+alias gra="git rebase --abort"
+alias grc="git rebase --continue"
+alias grs="git rebase --skip"
 
 # Docker
 alias docker-compose="docker compose"
@@ -31,6 +36,7 @@ alias dcps="docker-compose ps"
 alias d="docker"
 alias dps="docker ps"
 alias lzd="/home/${USERNAME}/.local/bin/lazydocker"
+alias de="docker/exec"
 
 colorflag="--color"
 
@@ -85,11 +91,18 @@ alias node="node14"
 # NPM
 alias npm="docker_node npm"
 
+# Hollywood
+alias hollywood="docker run --rm -it --name hollywood_${RANDOM} babeuloula/hollywood:latest hollywood"
+
 # Python
 alias python="python3"
 
 # Bat
-alias cat="batcat"
+alias cat="batcat --paging=never"
+
+# IT Tools
+alias it-tools="docker run --rm -p 8888:80 --name it-tools -it corentinth/it-tools"
+alias itt="it-tools"
 
 # Terraform
 alias t="terraform"

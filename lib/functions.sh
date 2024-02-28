@@ -11,7 +11,7 @@ readonly PURPLE='\033[0;35m'
 readonly CYAN='\033[0;36m'
 readonly WHITE='\033[0;37m'
 
-readonly DOTFILES_CONFIG_DIR="/home/${USER}/.dotfiles/config"
+readonly DOTFILES_CONFIG_DIR="/home/${USERNAME}/.dotfiles/config"
 
 function ask_value() {
     local message=$1
@@ -117,6 +117,7 @@ function install_apt_packages() {
         pv \
         ssh \
         stacer \
+        ubuntu-restricted-extras \
         unzip \
         unrar \
         zsh \
@@ -126,12 +127,9 @@ function install_apt_packages() {
 function install_docker() {
     echo_info "Install Docker & Docker Compose"
 
-    sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-    sudo mkdir -p /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    sudo apt-get update
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    curl -fsSL https://get.docker.com -o install-docker.sh
+    sudo sh install-docker.sh
+    rm -f install-docker.sh
 
     sudo usermod -aG docker ${USERNAME}
 
@@ -170,61 +168,61 @@ function setup_zsh() {
     echo_info "Setting up zsh"
 
     chsh -s /bin/zsh
-    cd "/home/${USER}"
+    cd "/home/${USERNAME}"
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-    wget -P /home/${USER}/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
+    wget -P /home/${USERNAME}/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
 
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-    if [[ -f "/home/${USER}/.aliases" ]]; then
-        rm /home/${USER}/.aliases
+    if [[ -f "/home/${USERNAME}/.aliases" ]]; then
+        rm /home/${USERNAME}/.aliases
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/aliases /home/${USER}/.aliases
+    ln -s ${DOTFILES_CONFIG_DIR}/aliases /home/${USERNAME}/.aliases
 
 
-    if [[ -f "/home/${USER}/.dockerfunc" ]]; then
-        rm /home/${USER}/.dockerfunc
+    if [[ -f "/home/${USERNAME}/.dockerfunc" ]]; then
+        rm /home/${USERNAME}/.dockerfunc
     fi    
-    ln -s ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USER}/.dockerfunc
+    ln -s ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USERNAME}/.dockerfunc
 
-    if [[ -f "/home/${USER}/.functions" ]]; then
-        rm /home/${USER}/.functions
+    if [[ -f "/home/${USERNAME}/.functions" ]]; then
+        rm /home/${USERNAME}/.functions
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/functions /home/${USER}/.functions
+    ln -s ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
 
-    if [[ -f "/home/${USER}/.zsh_profile" ]]; then
-        rm /home/${USER}/.zsh_profile
+    if [[ -f "/home/${USERNAME}/.zsh_profile" ]]; then
+        rm /home/${USERNAME}/.zsh_profile
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USER}/.zsh_profile
+    ln -s ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USERNAME}/.zsh_profile
 
-    if [[ -f "/home/${USER}/.zshrc" ]]; then
-        rm /home/${USER}/.zshrc
+    if [[ -f "/home/${USERNAME}/.zshrc" ]]; then
+        rm /home/${USERNAME}/.zshrc
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/zshrc /home/${USER}/.zshrc
+    ln -s ${DOTFILES_CONFIG_DIR}/zshrc /home/${USERNAME}/.zshrc
 }
 
 function setup_nano() {
     echo_info "Setting up nano"
 
-    if [[ -f "/home/${USER}/.nanorc" ]]; then
-        rm /home/${USER}/.nanorc
+    if [[ -f "/home/${USERNAME}/.nanorc" ]]; then
+        rm /home/${USERNAME}/.nanorc
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/nanorc /home/${USER}/.nanorc
+    ln -s ${DOTFILES_CONFIG_DIR}/nanorc /home/${USERNAME}/.nanorc
 }
 
 function setup_git() {
     echo_info "Setting up git"
 
-    if [[ -f "/home/${USER}/.gitignore_global" ]]; then
-        rm /home/${USER}/.gitignore_global
+    if [[ -f "/home/${USERNAME}/.gitignore_global" ]]; then
+        rm /home/${USERNAME}/.gitignore_global
     fi    
-    ln -s ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USER}/.gitignore_global
+    ln -s ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USERNAME}/.gitignore_global
 
-    if [[ -f "/home/${USER}/.gitconfig" ]]; then
-        rm /home/${USER}/.gitconfig
+    if [[ -f "/home/${USERNAME}/.gitconfig" ]]; then
+        rm /home/${USERNAME}/.gitconfig
     fi
-    ln -s ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USER}/.gitconfig
+    ln -s ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USERNAME}/.gitconfig
 }
 
 function setup_psysh() {
