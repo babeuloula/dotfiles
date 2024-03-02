@@ -268,6 +268,11 @@ function setup_zsh() {
     fi
     ln -s ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
 
+    if [[ -f "/home/${USERNAME}/.scaleway" ]]; then
+        rm /home/${USERNAME}/.scaleway
+    fi
+    ln -s ${DOTFILES_CONFIG_DIR}/scaleway /home/${USERNAME}/.scaleway
+
     if [[ -f "/home/${USERNAME}/.zsh_profile" ]]; then
         rm /home/${USERNAME}/.zsh_profile
     fi
