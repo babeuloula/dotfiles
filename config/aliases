@@ -79,7 +79,7 @@ alias psysh='docker run --rm -it --name php82_psysh_docker_${RANDOM} --user ${UI
 alias composer='docker run --rm -it --name composer_docker --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp composer:latest composer'
 
 # Symfony
-alias symfony='docker run --rm -it --name symfony_docker --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp babeuloula/symfony:latest symfony'
+alias symfony='docker run --rm -it --name symfony_docker -p 8000:8000 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp babeuloula/symfony:latest symfony'
 
 # NodeJS
 alias docker_node='docker run --rm -it --name node_14 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:14-alpine'
