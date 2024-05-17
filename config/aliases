@@ -9,6 +9,7 @@ alias -- -="cd -"
 alias rm="rm -i"
 
 # Shortcuts
+alias clear="clear -x"
 alias c="clear"
 alias dl="cd ~/Téléchargements"
 alias g="git"
