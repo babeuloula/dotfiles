@@ -12,6 +12,7 @@
     editor = nano
     excludesfile = ~/.gitignore_global
     whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    autocrlf = input
 
 [alias]
     a = add
