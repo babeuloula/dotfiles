@@ -27,6 +27,8 @@ function main() {
     install_snap_packages
     install_deb_packages
 
+    install_and_setup_mouse_and_keyboard
+
     clean_apt
 
     block_success "Installation finished! Don't forget to restart your computer."

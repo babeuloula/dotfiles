@@ -145,6 +145,24 @@ function install_apt_packages() {
         --no-install-recommends
 }
 
+function install_and_setup_mouse_and_keyboard() {
+    echo_info "Install mouse and keyboard"
+
+    sudo add-apt-repository ppa:solaar-unifying/stable
+
+    sudo apt update
+    sudo apt install -y \
+        ckb-next \
+        logiops \
+        solaar \
+        --no-install-recommends
+
+    sudo systemctl enable --now logid
+
+    sudo cp ${DOTFILES_CONFIG_DIR}/logid.cfg /etc/logid.cfg
+    sudo systemctl restart logid
+}
+
 function install_snap_packages() {
     echo_info "Install SNAP packages"
 
