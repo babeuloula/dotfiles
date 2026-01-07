@@ -1,0 +1,10 @@
+[Unit]
+Description=Restart logid service at boot
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "sleep 15 && systemctl restart logid"
+
+[Install]
+WantedBy=multi-user.target

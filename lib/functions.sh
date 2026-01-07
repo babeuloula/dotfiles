@@ -160,7 +160,12 @@ function install_and_setup_mouse_and_keyboard() {
     sudo systemctl enable --now logid
 
     sudo cp ${DOTFILES_CONFIG_DIR}/logid.cfg /etc/logid.cfg
-    sudo systemctl restart logid
+    sudo cp ${DOTFILES_CONFIG_DIR}/restart-logid.service /etc/systemd/system/restart-logid.service
+
+    sudo systemctl daemon-reexec
+    sudo systemctl daemon-reload
+    sudo systemctl enable restart-logid.service
+    sudo systemctl start restart-logid.service
 }
 
 function install_snap_packages() {
