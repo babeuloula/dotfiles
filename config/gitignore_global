@@ -23,6 +23,7 @@ Thumbs.db
 .idea_modules/
 atlassian-ide-plugin.xml
 .aiignore
+.junie/
 
 # 3rd party #
 #############
