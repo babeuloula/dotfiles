@@ -20,6 +20,7 @@ function main() {
     setup_nano
     setup_variety
     setup_psysh
+    setup_claude_code
 
     install_docker
     install_terraform

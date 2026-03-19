@@ -347,3 +347,9 @@ function setup_psysh() {
 
     cp ${DOTFILES_CONFIG_DIR}/psysh_config.php /home/${USERNAME}/.psysh/config/config.php
 }
+
+function setup_claude_code() {
+    curl -fsSL https://claude.ai/install.sh | bash
+
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+}
