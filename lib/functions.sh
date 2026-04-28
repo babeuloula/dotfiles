@@ -152,7 +152,6 @@ function install_and_setup_mouse_and_keyboard() {
 
     sudo apt update
     sudo apt install -y \
-        ckb-next \
         logiops \
         solaar \
         --no-install-recommends
