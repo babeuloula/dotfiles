@@ -148,6 +148,63 @@ function install_apt_packages() {
 function install_and_setup_mouse_and_keyboard() {
     echo_info "Install mouse and keyboard"
 
+    cat > ~/.local/bin/toggle-mic.sh << 'EOF'
+#!/bin/bash
+SOURCE=$(pactl get-default-source)
+
+# Toggle direct, sans lire l'état
+pactl set-source-mute "$SOURCE" toggle
+
+# Lire l'état APRÈS le toggle pour la notification
+MUTED=$(pactl get-source-mute "$SOURCE")
+
+if echo "$MUTED" | grep -iq "oui"; then
+    notify-send "🔇 Micro" "Coupé" --expire-time=1500
+else
+    notify-send "🎙️ Micro" "Activé" --expire-time=1500
+fi
+EOF
+    chmod +x ~/.local/bin/toggle-mic.sh
+
+    gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[
+        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/',
+        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/',
+        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/',
+        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/',
+        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/',
+        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/'
+    ]"
+
+    # F13 → Toggle mic
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Toggle mic'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command '~/.local/bin/toggle-mic.sh'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Shift><Control><Alt>F1'
+
+    # F14 → Spotify
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'Spotify'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'spotify'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Shift><Control><Alt>F2'
+
+    # Super+R → Tilix
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name 'Tilix'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command 'tilix'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Super>r'
+
+    # F16 → PHPStorm
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ name 'PHPStorm'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ command 'phpstorm'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ binding '<Shift><Control><Alt>F4'
+
+    # F17 → DataGrip
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ name 'DataGrip'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ command 'datagrip'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ binding '<Shift><Control><Alt>F5'
+
+    # F18 → VSCode
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ name 'VSCode'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ command 'code'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ binding '<Shift><Control><Alt>F6'
+
     sudo add-apt-repository ppa:solaar-unifying/stable
 
     sudo apt update
