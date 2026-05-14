@@ -113,3 +113,6 @@ alias t="terraform"
 
 # Stripe
 alias stripe="docker run --rm -it stripe/stripe-cli:latest"
+
+# Claude
+alias claude="claude --ide"
