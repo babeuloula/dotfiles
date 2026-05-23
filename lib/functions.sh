@@ -190,6 +190,8 @@ function setup_zsh() {
     chsh -s /bin/zsh
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+    brew install --cask font-hack-nerd-font
+
     curl -o "$HOME/.oh-my-zsh/custom/themes/babeuloula.zsh-theme" \
         https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
 
