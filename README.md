@@ -7,7 +7,7 @@ Inspired by:
 ## Installtion
 
 ```bash
-curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/master/install.sh | bash --
+curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/linux/install.sh | bash --
 ```
 
 ## Chrome extensions
