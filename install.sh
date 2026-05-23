@@ -4,14 +4,8 @@ set -e
 
 # PROMPT COLOURS
 readonly RESET='\033[0;0m'
-readonly BLACK='\033[0;30m'
 readonly RED='\033[0;31m'
-readonly GREEN='\033[0;32m'
-readonly YELLOW='\033[0;33m'
-readonly BLUE='\033[0;34m'
-readonly PURPLE='\033[0;35m'
 readonly CYAN='\033[0;36m'
-readonly WHITE='\033[0;37m'
 
 function block() {
     local color=$1
@@ -28,18 +22,34 @@ function block() {
     echo -en "\033[0m\n\n"
 }
 
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo -e "${RED}This script is intended for macOS only.${RESET}"
+    exit 1
+fi
+
 block "44" "Welcome to your dotfiles installer!"
 
-echo -e "${CYAN}Install minimum requirements before install.${RESET}" > /dev/tty
+echo -e "${CYAN}Install Xcode Command Line Tools.${RESET}" > /dev/tty
+xcode-select --install 2>/dev/null || echo "Xcode Command Line Tools already installed."
 
-sudo apt update
-sudo apt upgrade -y
-sudo apt install -y \
-    curl \
-    git
+echo -e "${CYAN}Install Homebrew.${RESET}" > /dev/tty
+if ! command -v brew &>/dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    if [[ "$(uname -m)" == "arm64" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    else
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+else
+    echo "Homebrew already installed."
+fi
+
+echo -e "${CYAN}Install git.${RESET}" > /dev/tty
+brew install git
 
 echo -e "${CYAN}Clone repo for installation.${RESET}" > /dev/tty
-git clone https://github.com/babeuloula/dotfiles.git ~/.dotfiles
+git clone -b macos https://github.com/babeuloula/dotfiles.git ~/.dotfiles
 
 cd ~/.dotfiles
 ./dotfiles.sh

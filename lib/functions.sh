@@ -11,7 +11,7 @@ readonly PURPLE='\033[0;35m'
 readonly CYAN='\033[0;36m'
 readonly WHITE='\033[0;37m'
 
-readonly DOTFILES_CONFIG_DIR="/home/${USERNAME}/.dotfiles/config"
+readonly DOTFILES_CONFIG_DIR="$HOME/.dotfiles/config"
 
 function ask_value() {
     local message=$1
@@ -90,322 +90,193 @@ function trap_exit() {
     fi
 }
 
-function install_apt_packages() {
-    echo_info "Install APT packages"
+function install_brew_packages() {
+    echo_info "Install Homebrew packages"
 
-    # Google Chrome
-    sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    
-    # Signal
-    wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
-    cat signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
-    echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+    brew update
+    brew upgrade
 
-    sudo apt update
-    sudo apt install -y \
-        ansible \
+    echo_info " - Formulas"
+    brew install \
         bat \
         bash-completion \
-        compizconfig-settings-manager \
-        dia \
+        cheat \
         ffmpeg \
-        firefox \
-        fonts-powerline \
         git \
-        gnome-tweaks \
-        gnupg2 \
-        google-chrome-stable \
+        gnupg \
         htop \
         httpie \
         imagemagick \
         jq \
         less \
-        libavcodec-extra \
-        libfuse2 \
-        make \
-        meld \
         nano \
-        p7zip-full \
-        pavucontrol \
-        python3-pygments \
+        ngrok \
+        p7zip \
         pv \
         rclone \
-        signal-desktop \
-        snap \
-        snapd \
-        ssh \
-        stacer \
-        tilix \
-        ubuntu-restricted-extras \
-        unzip \
-        unrar \
-        variety \
-        zsh \
-        --no-install-recommends
+        terraform
+
+    echo_info " - Casks"
+    brew install --cask \
+        alt-tab \
+        appcleaner \
+        datagrip \
+        discord \
+        firefox \
+        gimp \
+        google-chrome \
+        insomnia \
+        iterm2 \
+        kdrive \
+        launchos \
+        pearcleaner \
+        phpstorm \
+        signal \
+        slack \
+        spotify \
+        stats \
+        steam \
+        termius \
+        thaw \
+        visual-studio-code \
+        vlc
+
+    echo_info " - The Boring Notch"
+    brew tap TheBoredTeam/boring-notch
+    brew install --cask TheBoredTeam/boring-notch/boring-notch
+
+    echo_info " - PromptEdit"
+    brew install mnapoli/tap/promptedit
+
+    echo_info " - Claude-God"
+    brew tap lcharvol/tap
+    brew install --cask claude-god
 }
 
-function install_and_setup_mouse_and_keyboard() {
-    echo_info "Install mouse and keyboard"
+function install_node() {
+    echo_info "Install Node.js via nvm"
 
-    cat > ~/.local/bin/toggle-mic.sh << 'EOF'
-#!/bin/bash
-SOURCE=$(pactl get-default-source)
+    brew install nvm
+    mkdir -p "$HOME/.nvm"
 
-# Toggle direct, sans lire l'état
-pactl set-source-mute "$SOURCE" toggle
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$(brew --prefix nvm)/nvm.sh" ] && source "$(brew --prefix nvm)/nvm.sh"
 
-# Lire l'état APRÈS le toggle pour la notification
-MUTED=$(pactl get-source-mute "$SOURCE")
-
-if echo "$MUTED" | grep -iq "oui"; then
-    notify-send "🔇 Micro" "Coupé" --expire-time=1500
-else
-    notify-send "🎙️ Micro" "Activé" --expire-time=1500
-fi
-EOF
-    chmod +x ~/.local/bin/toggle-mic.sh
-
-    gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[
-        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/',
-        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/',
-        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/',
-        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/',
-        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/',
-        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/'
-    ]"
-
-    # F13 → Toggle mic
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Toggle mic'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "/home/${USERNAME}/.local/bin/toggle-mic.sh"
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Shift><Control><Alt>F1'
-
-    # F14 → Spotify
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'Spotify'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'spotify'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Shift><Control><Alt>F2'
-
-    # Super+R → Tilix
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name 'Tilix'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command 'tilix'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Super>r'
-
-    # F16 → PHPStorm
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ name 'PHPStorm'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ command 'phpstorm'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ binding '<Shift><Control><Alt>F4'
-
-    # F17 → DataGrip
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ name 'DataGrip'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ command 'datagrip'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ binding '<Shift><Control><Alt>F5'
-
-    # F18 → VSCode
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ name 'VSCode'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ command 'code'
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ binding '<Shift><Control><Alt>F6'
-
-    sudo add-apt-repository ppa:solaar-unifying/stable
-
-    sudo apt update
-    sudo apt install -y \
-        logiops \
-        solaar \
-        --no-install-recommends
-
-    sudo systemctl enable --now logid
-
-    sudo cp ${DOTFILES_CONFIG_DIR}/logid.cfg /etc/logid.cfg
-    sudo cp ${DOTFILES_CONFIG_DIR}/restart-logid.service /etc/systemd/system/restart-logid.service
-
-    sudo systemctl daemon-reexec
-    sudo systemctl daemon-reload
-    sudo systemctl enable restart-logid.service
-    sudo systemctl start restart-logid.service
+    nvm install --lts
+    nvm use --lts
+    nvm alias default node
 }
 
-function install_snap_packages() {
-    echo_info "Install SNAP packages"
+function install_orbstack() {
+    echo_info "Install OrbStack (Docker runtime)"
 
-    echo_info " - GIMP"
-    sudo snap install --classic gimp
-    
-    echo_info " - GitKraken"
-    sudo snap install --classic gitkraken
-    
-    echo_info " - Postman"
-    sudo snap install --classic postman
-    
-    echo_info " - Spotify"
-    sudo snap install --classic spotify
-    
-    echo_info " - Termius"
-    sudo snap install --classic termius-app
-    
-    echo_info " - VLC"
-    sudo snap install --classic vlc
-    
-    echo_info " - Indicator Sensors"
-    sudo snap install --classic indicator-sensors
-
-    echo_info " - DataGrip"
-    sudo snap install --classic datagrip
-    
-    echo_info " - Discord"
-    sudo snap install --classic discord
-    
-    echo_info " - PhpStorm"
-    sudo snap install --classic phpstorm
-        
-    echo_info " - Slack"
-    sudo snap install --classic slack
-    
-    echo_info " - Ngrok"
-    sudo snap install --classic ngrok
-    
-    echo_info " - Cheat"
-    sudo snap install --classic cheat
-    
-    echo_info " - VSCode"
-    sudo snap install --classic code
-}
-
-function install_deb_packages() {
-    echo_info "Install DEB packages:"
-}
-
-function install_docker() {
-    echo_info "Install Docker & Docker Compose"
-
-    curl -fsSL https://get.docker.com -o install-docker.sh
-    sudo sh install-docker.sh
-    rm -f install-docker.sh
-
-    sudo usermod -aG docker ${USERNAME}
+    brew install --cask orbstack
 
     echo_info "Install LazyDocker"
-    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
-    mkdir -p /home/${USERNAME}/.config/lazydocker
-    ln -s ${DOTFILES_CONFIG_DIR}/lazydocker.yml /home/${USERNAME}/.config/lazydocker/config.yml
+    brew install jesseduffield/lazydocker/lazydocker
+    mkdir -p "$HOME/.config/lazydocker"
+    ln -sf "${DOTFILES_CONFIG_DIR}/lazydocker.yml" "$HOME/.config/lazydocker/config.yml"
 }
 
-function install_terraform() {
-    echo_info "Install Terraform"
-
-    sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-    wget -O- https://apt.releases.hashicorp.com/gpg | \
-        gpg --dearmor | \
-        sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
-    gpg --no-default-keyring \
-        --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
-        --fingerprint
-    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
-        https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-        sudo tee /etc/apt/sources.list.d/hashicorp.list
-    sudo apt update
-    sudo apt-get install terraform
-}
-
-function clean_apt() {
-    echo_info "Clean APT"
-
-    sudo apt autoremove -y
-    sudo apt autoclean -y
-    sudo apt clean -y
-}
-
-function setup_tilix() {
-    echo_info "Setting up Tilix"
-
-    dconf load /com/gexperts/Tilix/ < ${DOTFILES_CONFIG_DIR}/tilix.conf
+function setup_iterm2() {
+    echo_info "Setting up iTerm2"
+    echo_warning "→ Configure iTerm2 manually via Preferences > Profiles."
+    echo_warning "  Tip: Preferences > General > Preferences > Load from custom folder to sync settings."
 }
 
 function setup_zsh() {
     echo_info "Setting up zsh"
 
     chsh -s /bin/zsh
-    cd "/home/${USERNAME}"
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-    wget -P /home/${USERNAME}/.oh-my-zsh/custom/themes https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
+    curl -o "$HOME/.oh-my-zsh/custom/themes/babeuloula.zsh-theme" \
+        https://raw.githubusercontent.com/babeuloula/babeuloula-zsh-theme/master/babeuloula.zsh-theme
 
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions \
+        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
-    if [[ -f "/home/${USERNAME}/.aliases" ]]; then
-        rm /home/${USERNAME}/.aliases
-    fi
-    ln -s ${DOTFILES_CONFIG_DIR}/aliases /home/${USERNAME}/.aliases
+    local dotfile_links=(
+        ".aliases:aliases"
+        ".dockerfunc:dockerfunc"
+        ".functions:functions"
+        ".zsh_profile:zsh_profile"
+        ".zshrc:zshrc"
+    )
 
-
-    if [[ -f "/home/${USERNAME}/.dockerfunc" ]]; then
-        rm /home/${USERNAME}/.dockerfunc
-    fi    
-    ln -s ${DOTFILES_CONFIG_DIR}/dockerfunc /home/${USERNAME}/.dockerfunc
-
-    if [[ -f "/home/${USERNAME}/.functions" ]]; then
-        rm /home/${USERNAME}/.functions
-    fi
-    ln -s ${DOTFILES_CONFIG_DIR}/functions /home/${USERNAME}/.functions
-
-    if [[ -f "/home/${USERNAME}/.scaleway" ]]; then
-        rm /home/${USERNAME}/.scaleway
-    fi
-    ln -s ${DOTFILES_CONFIG_DIR}/scaleway /home/${USERNAME}/.scaleway
-
-    if [[ -f "/home/${USERNAME}/.zsh_profile" ]]; then
-        rm /home/${USERNAME}/.zsh_profile
-    fi
-    ln -s ${DOTFILES_CONFIG_DIR}/zsh_profile /home/${USERNAME}/.zsh_profile
-
-    if [[ -f "/home/${USERNAME}/.zshrc" ]]; then
-        rm /home/${USERNAME}/.zshrc
-    fi
-    ln -s ${DOTFILES_CONFIG_DIR}/zshrc /home/${USERNAME}/.zshrc
+    for entry in "${dotfile_links[@]}"; do
+        local target="$HOME/${entry%%:*}"
+        local source="${DOTFILES_CONFIG_DIR}/${entry##*:}"
+        [[ -f "$target" ]] && rm "$target"
+        ln -s "$source" "$target"
+    done
 }
 
 function setup_nano() {
     echo_info "Setting up nano"
 
-    if [[ -f "/home/${USERNAME}/.nanorc" ]]; then
-        rm /home/${USERNAME}/.nanorc
-    fi
-    ln -s ${DOTFILES_CONFIG_DIR}/nanorc /home/${USERNAME}/.nanorc
+    [[ -f "$HOME/.nanorc" ]] && rm "$HOME/.nanorc"
+    ln -s "${DOTFILES_CONFIG_DIR}/nanorc" "$HOME/.nanorc"
 }
 
 function setup_git() {
     echo_info "Setting up git"
 
-    if [[ -f "/home/${USERNAME}/.gitignore_global" ]]; then
-        rm /home/${USERNAME}/.gitignore_global
-    fi    
-    ln -s ${DOTFILES_CONFIG_DIR}/gitignore_global /home/${USERNAME}/.gitignore_global
+    [[ -f "$HOME/.gitignore_global" ]] && rm "$HOME/.gitignore_global"
+    ln -s "${DOTFILES_CONFIG_DIR}/gitignore_global" "$HOME/.gitignore_global"
 
-    if [[ -f "/home/${USERNAME}/.gitconfig" ]]; then
-        rm /home/${USERNAME}/.gitconfig
-    fi
-    ln -s ${DOTFILES_CONFIG_DIR}/gitconfig /home/${USERNAME}/.gitconfig
-}
-
-function setup_variety() {
-    mkdir -p /home/${USERNAME}/.config/variety/scripts
-    sed -i '/^# Gnome 3, Unity*/a gsettings set org.gnome.desktop.background picture-uri-dark "file://$WP" 2> /dev/null' /home/$USER/.config/variety/scripts/set_wallpaper
+    [[ -f "$HOME/.gitconfig" ]] && rm "$HOME/.gitconfig"
+    ln -s "${DOTFILES_CONFIG_DIR}/gitconfig" "$HOME/.gitconfig"
 }
 
 function setup_psysh() {
-    mkdir -p /home/${USERNAME}/.psysh/config
+    mkdir -p "$HOME/.psysh/config"
 
-    # Install psysh
-    curl -L https://psysh.org/psysh -o /home/${USERNAME}/.psysh/psysh
-    chmod +x /home/${USERNAME}/.psysh/psysh
+    curl -L https://psysh.org/psysh -o "$HOME/.psysh/psysh"
+    chmod +x "$HOME/.psysh/psysh"
 
-    # Install PHP french manual
-    curl -L http://psysh.org/manual/fr/php_manual.sqlite -o /home/${USERNAME}/.psysh/php_manual.sqlite
+    curl -L http://psysh.org/manual/fr/php_manual.sqlite -o "$HOME/.psysh/php_manual.sqlite"
 
-    cp ${DOTFILES_CONFIG_DIR}/psysh_config.php /home/${USERNAME}/.psysh/config/config.php
+    cp "${DOTFILES_CONFIG_DIR}/psysh_config.php" "$HOME/.psysh/config/config.php"
 }
 
 function setup_claude_code() {
     curl -fsSL https://claude.ai/install.sh | bash
 
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+}
+
+function install_and_setup_mouse_and_keyboard() {
+    echo_info "Install mouse and keyboard tools"
+
+    mkdir -p "$HOME/.local/bin"
+
+    cat > "$HOME/.local/bin/toggle-mic.sh" << 'EOF'
+#!/bin/bash
+osascript <<'APPLESCRIPT'
+set vol to get volume settings
+if input muted of vol then
+    set volume without input muted
+    display notification "Activé" with title "🎙️ Micro"
+else
+    set volume with input muted
+    display notification "Coupé" with title "🔇 Micro"
+end if
+APPLESCRIPT
+EOF
+    chmod +x "$HOME/.local/bin/toggle-mic.sh"
+
+    echo_info " - Logi Options+ (MX Master 3)"
+    brew install --cask logi-options+
+
+    echo_warning "→ Keyboard shortcuts (Toggle mic, Spotify, iTerm2, PhpStorm, DataGrip, VSCode)"
+    echo_warning "  must be configured manually in:"
+    echo_warning "  System Settings > Keyboard > Keyboard Shortcuts"
+    echo_warning "  Toggle mic script: $HOME/.local/bin/toggle-mic.sh"
+}
+
+function clean_brew() {
+    echo_info "Clean Homebrew"
+
+    brew cleanup
 }

@@ -36,7 +36,7 @@ alias dc="docker-compose"
 alias dcps="docker-compose ps"
 alias d="docker"
 alias dps="docker ps"
-alias lzd="/home/${USERNAME}/.local/bin/lazydocker"
+alias lzd="lazydocker"
 alias de="docker/exec"
 
 colorflag="--color"
@@ -57,7 +57,7 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 alias grep="grep --color=auto "
 
 alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ip addr show | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias localip="ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1"
 
 # PHP
 alias php8.5='docker run --rm -it --name php85_docker --user ${UID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp php:8.5-cli-alpine php'
@@ -73,9 +73,9 @@ alias php7.1='docker run --rm -it --name php71_docker --user ${UID} -v "$(pwd)":
 alias php="php8.5"
 alias psysh='docker run --rm -it --name php82_psysh_docker_${RANDOM} --user ${UID} \
     -v "$(pwd)":/usr/src/myapp \
-    -v "/home/$(whoami)/.psysh/psysh":/usr/local/sbin/psysh \
-    -v "/home/$(whoami)/.psysh/config":/.config/psysh \
-    -v "/home/$(whoami)/.psysh/php_manual.sqlite":/usr/local/share/psysh/php_manual.sqlite \
+    -v "$HOME/.psysh/psysh":/usr/local/sbin/psysh \
+    -v "$HOME/.psysh/config":/.config/psysh \
+    -v "$HOME/.psysh/php_manual.sqlite":/usr/local/share/psysh/php_manual.sqlite \
     -w /usr/src/myapp php:8.2-cli-alpine \
     psysh'
 
@@ -85,16 +85,6 @@ alias composer='docker run --rm -it --name composer_docker --user ${UID}:${GID} 
 # Symfony
 alias symfony='docker run --rm -it --name symfony_docker -p 8000:8000 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp babeuloula/symfony:latest symfony'
 
-# NodeJS
-alias docker_node='docker run --rm -it --name node_14 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:14-alpine'
-alias node14="docker_node node"
-alias node12='docker run --rm -it --name node_12 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:12-alpine node'
-alias node10='docker run --rm -it --name node_10 --user ${UID}:${GID} -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp node:10-alpine node'
-alias node="node14"
-
-# NPM
-alias npm="docker_node npm"
-
 # Hollywood
 alias hollywood="docker run --rm -it --name hollywood_${RANDOM} babeuloula/hollywood:latest hollywood"
 
@@ -102,7 +92,7 @@ alias hollywood="docker run --rm -it --name hollywood_${RANDOM} babeuloula/holly
 alias python="python3"
 
 # Bat
-alias cat="batcat --paging=never"
+alias cat="bat --paging=never"
 
 # IT Tools
 alias it-tools="docker run --rm -p 8888:80 --name it-tools -it corentinth/it-tools"

@@ -4,11 +4,57 @@ Inspired by:
 - [jdecool/dotfiles](https://github.com/jdecool/dotfiles)
 - [jessfraz/dotfiles](https://github.com/jessfraz/dotfiles)
 
-## Installtion
+## Installation (macOS)
+
+### Prérequis
+
+- macOS Sequoia (ou plus récent)
+- Une connexion internet
+
+### Procédure
 
 ```bash
-curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/linux/install.sh | bash --
+curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/macos/install.sh | bash --
 ```
+
+Ce script va :
+1. Installer les **Xcode Command Line Tools** (si absents)
+2. Installer **Homebrew**
+3. Cloner ce dépôt dans `~/.dotfiles`
+4. Lancer `dotfiles.sh` qui installe et configure tout
+
+### Ce qui est installé
+
+**Outils CLI** : `bat`, `ffmpeg`, `git`, `htop`, `httpie`, `imagemagick`, `jq`, `nano`, `rclone`, `terraform`, `cheat`, `ngrok`, `gnupg`...
+
+**Applications** :
+- Navigateurs : Google Chrome, Firefox
+- Communication : Signal, Discord, Slack
+- Dev : iTerm2, VS Code, PhpStorm, DataGrip, Insomnia
+- Médias : Spotify, VLC, GIMP, Steam
+- Utilitaires macOS : [Stats](https://github.com/exelban/stats), [Alt-Tab](https://alt-tab-macos.netlify.app), [AppCleaner](https://freemacsoft.net/appcleaner/), [PearCleaner](https://itsalin.com/appInfo/?id=pearcleaner), [Thaw](https://github.com/stonerl/Thaw), [LaunchOS](https://github.com/Remix-Design/LaunchOS), [The Boring Notch](https://github.com/TheBoredTeam/boring.notch)
+- Claude : [PromptEdit](https://github.com/mnapoli/PromptEdit), [Claude-God](https://github.com/Lcharvol/Claude-God)
+- Cloud : [kDrive (Infomaniak)](https://www.infomaniak.com/fr/apps/kdrive)
+- Docker : **OrbStack** + LazyDocker
+- Node.js : géré via **nvm** (LTS installée par défaut)
+- Souris : **Logi Options+** pour MX Master 3
+
+### Après l'installation
+
+#### Raccourcis clavier
+
+Les raccourcis F13–F18 (Toggle mic, Spotify, iTerm2, PhpStorm, DataGrip, VSCode) doivent être configurés manuellement :
+
+`Réglages Système > Clavier > Raccourcis clavier`
+
+Le script de toggle microphone est disponible dans `~/.local/bin/toggle-mic.sh`.
+
+#### iTerm2
+
+Les préférences iTerm2 se configurent via l'interface graphique :
+`Preferences > General > Preferences > Load preferences from a custom folder`
+
+---
 
 ## Chrome extensions
 

@@ -62,13 +62,13 @@
 
 [diff]
     renames = copies
-    tool = meld
+    tool = vscode
 
 [difftool]
     prompt = false
 
-[difftool "meld"]
-    cmd = meld "$REMOTE" "$LOCAL"
+[difftool "vscode"]
+    cmd = code --wait --diff "$LOCAL" "$REMOTE"
 
 [merge]
     log = true
