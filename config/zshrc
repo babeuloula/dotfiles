@@ -37,3 +37,5 @@ export PATH="$HOME/.local/bin:$PATH"
 # Load fzf
 source /usr/share/doc/fzf/examples/completion.zsh
 source /usr/share/doc/fzf/examples/key-bindings.zsh
+export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"

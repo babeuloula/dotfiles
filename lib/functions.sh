@@ -138,6 +138,7 @@ function install_apt_packages() {
         ssh \
         stacer \
         tilix \
+        tree \
         ubuntu-restricted-extras \
         unzip \
         unrar \
