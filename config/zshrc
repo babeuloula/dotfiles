@@ -33,3 +33,7 @@ complete -o nospace -C /usr/bin/terraform terraform
 # Added by serverless binary installer
 export PATH="$HOME/.serverless/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+# Load fzf
+source /usr/share/doc/fzf/examples/completion.zsh
+source /usr/share/doc/fzf/examples/key-bindings.zsh

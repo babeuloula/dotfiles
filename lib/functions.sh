@@ -111,6 +111,7 @@ function install_apt_packages() {
         dia \
         ffmpeg \
         firefox \
+        fzf \
         fonts-powerline \
         git \
         gnome-tweaks \
