@@ -101,7 +101,9 @@ function install_brew_packages() {
         bat \
         bash-completion \
         cheat \
+        fd \
         ffmpeg \
+        fzf \
         git \
         gnupg \
         htop \
@@ -114,7 +116,8 @@ function install_brew_packages() {
         p7zip \
         pv \
         rclone \
-        terraform
+        terraform \
+        tree
 
     echo_info " - Casks"
     brew install --cask \
@@ -151,6 +154,9 @@ function install_brew_packages() {
     echo_info " - Claude-God"
     brew tap lcharvol/tap
     brew install --cask claude-god
+
+    echo_info "- fzf"
+    $(brew --prefix)/opt/fzf/install
 }
 
 function install_node() {
