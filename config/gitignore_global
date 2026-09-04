@@ -28,3 +28,7 @@ atlassian-ide-plugin.xml
 #############
 node_modules/
 vendor/
+
+# Claude #
+settings.local.json
+**/.claude/worktrees/
