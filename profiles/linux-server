@@ -1,0 +1,12 @@
+# Steps run in this order. "always:" = run on every install/update.
+install_apt_packages
+setup_zsh
+setup_git
+setup_nano
+setup_psysh
+setup_claude_code
+always:setup_claude_statusline
+install_docker
+install_lazydocker
+install_terraform
+clean_apt

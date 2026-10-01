@@ -1,0 +1,13 @@
+# Steps run in this order. "always:" = run on every install/update.
+install_brew_packages
+install_node
+install_orbstack
+setup_iterm2
+setup_zsh
+setup_git
+setup_nano
+setup_psysh
+setup_claude_code
+always:setup_claude_statusline
+install_and_setup_mouse_and_keyboard_macos
+clean_brew
