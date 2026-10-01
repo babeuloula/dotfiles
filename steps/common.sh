@@ -75,11 +75,28 @@ function setup_claude_code() {
     mkdir -p "$HOME/.claude"
     [[ -f "${settings}" ]] || echo '{}' > "${settings}"
 
-    # Status line + no Claude attribution in commits/PRs
+    # Desktop notifications: "done" only when nothing runs in the background,
+    # "waiting" when Claude needs an answer, grouped under one application
+    link_config claude/notify.sh "$HOME/.claude/notify.sh"
+    cp "${DOTFILES_CONFIG_DIR}/claude/icon.png" "$HOME/.claude/icon.png"
+    if is_linux; then
+        mkdir -p "$HOME/.local/share/applications"
+        printf '%s\n' '[Desktop Entry]' 'Type=Application' 'Name=Claude Code' \
+            "Icon=$HOME/.claude/icon.png" 'Exec=claude' 'NoDisplay=true' \
+            > "$HOME/.local/share/applications/claude-code.desktop"
+    fi
+
+    # Status line, notifications, no Claude attribution in commits/PRs
     jq '. + {
         statusLine: {type: "command", command: "bash ~/.claude/statusline.sh", refreshInterval: 600},
         attribution: {commit: "", pr: "", sessionUrl: false}
-    }' "${settings}" > "${settings}.tmp"
+    } | .hooks = ((.hooks // {}) + {
+        Stop: [{hooks: [{type: "command", command: "bash ~/.claude/notify.sh done", async: true}]}],
+        Notification: [{
+            matcher: "permission_prompt|elicitation_dialog|elicitation_url_dialog|agent_needs_input",
+            hooks: [{type: "command", command: "bash ~/.claude/notify.sh waiting", async: true}]
+        }]
+    })' "${settings}" > "${settings}.tmp"
     mv "${settings}.tmp" "${settings}"
 }
 
