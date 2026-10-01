@@ -132,9 +132,9 @@ function print_status() {
             esac
         fi
 
-        printf '  %-45s %b\n' "${step}" "${label}" > "${TTY}"
+        printf '  %-45s %b\n' "${step}" "${label}" >&3
     done
-    echo > "${TTY}"
+    echo >&3
 }
 
 # run_step <step>: 0 = done, 1 = skipped, 2 = abort
@@ -168,9 +168,9 @@ function run_step() {
             return 0
         fi
 
-        echo > "${TTY}"
+        echo >&3
         echo_error "✘ ${step} a échoué (code ${rc}). Dernières lignes :"
-        tail -n 20 "${output}" > "${TTY}"
+        tail -n 20 "${output}" >&3
         rm -f "${output}"
         echo_dim "Log complet : ${LOG_FILE}"
 
@@ -186,7 +186,7 @@ function run_step() {
 }
 
 function print_summary() {
-    echo > "${TTY}"
+    echo >&3
     [[ ${#RESULT_RAN[@]} -gt 0 ]] && echo_success "Exécutées : ${RESULT_RAN[*]}"
     [[ ${#RESULT_UP_TO_DATE[@]} -gt 0 ]] && echo_dim "Déjà à jour : ${#RESULT_UP_TO_DATE[@]} étape(s)"
     [[ ${#RESULT_SKIPPED[@]} -gt 0 ]] && echo_warning "Passées (retentées au prochain lancement) : ${RESULT_SKIPPED[*]}"

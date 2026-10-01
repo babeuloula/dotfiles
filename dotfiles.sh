@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2034 # options and LOG_FILE are read by the sourced lib/runner.sh
 
 if [[ -z "${BASH_VERSINFO[0]}" || "${BASH_VERSINFO[0]}" -lt 4 ]]; then
     echo "bash >= 4 est requis (version actuelle : ${BASH_VERSION:-inconnue})." >&2
@@ -8,10 +9,9 @@ fi
 
 set -euo pipefail
 
-DOTFILES_DIR=$(cd "$(dirname "$(realpath "$0")")" && pwd)
+DOTFILES_DIR=$(cd "$(dirname "$0")" && pwd -P)
 DOTFILES_CONFIG_DIR="${DOTFILES_DIR}/config"
 DOTFILES_STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
-# shellcheck disable=SC2034 # used by the sourced libs
 LOG_FILE="${DOTFILES_STATE_DIR}/install.log"
 export DOTFILES_DIR DOTFILES_CONFIG_DIR DOTFILES_STATE_DIR
 
@@ -40,9 +40,7 @@ EOF
 }
 
 COMMAND=""
-# shellcheck disable=SC2034 # used by lib/runner.sh
 OPT_STEP_BY_STEP=0
-# shellcheck disable=SC2034
 OPT_FORCE=0
 OPT_ONLY=()
 OPT_PROFILE=""
@@ -84,7 +82,7 @@ function update_repository() {
     after=$(git -C "${DOTFILES_DIR}" rev-parse HEAD)
 
     if [[ "${before}" != "${after}" ]]; then
-        git -C "${DOTFILES_DIR}" --no-pager log --oneline "${before}..${after}" > "${TTY}"
+        git -C "${DOTFILES_DIR}" --no-pager log --oneline "${before}..${after}" >&3
     else
         echo_dim "Déjà à jour."
     fi
