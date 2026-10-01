@@ -32,3 +32,7 @@ vendor/
 # Claude #
 settings.local.json
 **/.claude/worktrees/
+
+# AI tools #
+############
+.superpowers/
