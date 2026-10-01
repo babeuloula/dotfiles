@@ -424,7 +424,7 @@ function setup_claude_code() {
         echo '{}' > ${settings}
     fi
     jq '. + {
-        statusLine: {type: "command", command: "bash ~/.claude/statusline.sh"},
+        statusLine: {type: "command", command: "bash ~/.claude/statusline.sh", refreshInterval: 600},
         attribution: {commit: "", pr: "", sessionUrl: false}
     }' ${settings} > ${settings}.tmp && mv ${settings}.tmp ${settings}
 }
