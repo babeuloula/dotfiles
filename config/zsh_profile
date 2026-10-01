@@ -2,3 +2,6 @@ for file in ~/.{aliases,dockerfunc,functions,scaleway}; do
 	[[ -r "$file" ]] && [[ -f "$file" ]] && source "$file"
 done
 unset file
+
+# Machine-specific aliases, not versioned
+[[ -r ~/.aliases.local ]] && source ~/.aliases.local
