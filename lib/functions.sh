@@ -407,7 +407,24 @@ function setup_psysh() {
 }
 
 function setup_claude_code() {
+    echo_info "Setting up Claude Code"
+
     curl -fsSL https://claude.ai/install.sh | bash
 
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+    local claude_dir="/home/${USERNAME}/.claude"
+    local settings="${claude_dir}/settings.json"
+    mkdir -p ${claude_dir}
+
+    # Status line
+    curl -fsSL https://gist.githubusercontent.com/babeuloula/bd589aee743367340d6b1d09a117f539/raw/statusline.sh -o ${claude_dir}/statusline.sh
+    chmod +x ${claude_dir}/statusline.sh
+
+    # Settings: status line + no Claude attribution in commits/PRs
+    if [[ ! -f "${settings}" ]]; then
+        echo '{}' > ${settings}
+    fi
+    jq '. + {
+        statusLine: {type: "command", command: "bash ~/.claude/statusline.sh"},
+        attribution: {commit: "", pr: "", sessionUrl: false}
+    }' ${settings} > ${settings}.tmp && mv ${settings}.tmp ${settings}
 }
