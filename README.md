@@ -1,52 +1,97 @@
 # dotfiles
 
-Inspired by:
-- [jdecool/dotfiles](https://github.com/jdecool/dotfiles)
-- [jessfraz/dotfiles](https://github.com/jessfraz/dotfiles)
+Mes dotfiles pour **macOS**, **Linux desktop** (Ubuntu) et **serveurs Linux**, sur une seule branche.
 
-## Installtion
+Inspiré par [jdecool/dotfiles](https://github.com/jdecool/dotfiles) et [jessfraz/dotfiles](https://github.com/jessfraz/dotfiles).
+
+## Installation
 
 ```bash
-curl -L https://raw.githubusercontent.com/babeuloula/dotfiles/linux/install.sh | bash --
+curl -fsSL https://raw.githubusercontent.com/babeuloula/dotfiles/main/install.sh | bash
 ```
 
-## Chrome extensions
+`install.sh` :
+1. installe le minimum (`git`, `curl` ; sur macOS : Xcode Command Line Tools, Homebrew et un bash récent) ;
+2. clone ce dépôt dans `~/.dotfiles` (ou le met à jour s'il existe déjà) ;
+3. lance `~/.dotfiles/dotfiles.sh install`.
 
-- [Adblocks](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb)
-- [EditThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg)
-- [Refined GitHub](https://chrome.google.com/webstore/detail/refined-github/hlepfoohegkhhmjieoechaddaejaokhf)
-- [Sight](https://chrome.google.com/webstore/detail/sight/epmaefhielclhlnmjofcdapbeepkmggh)
-- [stylus](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
-- [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
-- [QookieFix](https://chrome.google.com/webstore/detail/qookiefix/gkfjmfmjckaabogdpclnahenmcijplpe)
+### Profils
 
-## Tampermonkey scripts
+Le profil est détecté automatiquement puis mémorisé dans `~/.local/state/dotfiles/profile` :
 
-- Dark Scripts
-	- [Wikipedia](https://github.com/StylishThemes/Wikipedia-Dark)
-	- [StackOverflow](https://github.com/StylishThemes/StackOverflow-Dark)
-- [Cyprille's scripts](https://github.com/cyprille/tampermonkey-scripts)
-	- [Github show hidden conversations](https://raw.githubusercontent.com/cyprille/tampermonkey-scripts/master/scripts/github-show-hidden-conversations.user.js)
-- [Github Userscripts](https://github.com/Mottie/GitHub-userscripts)
-	- [GitHub Diff Files Filter](https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-diff-files-filter.user.js)
-	- [GitHub Indent Comments](https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-indent-comments.user.js)
-	- [GitHub Table of Contents](https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-toc.user.js)
-	- [GitHub Toggle Diff Comments](https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-toggle-diff-comments.user.js)
+| Profil          | Détection                                                         |
+|-----------------|-------------------------------------------------------------------|
+| `macos`         | `uname` = Darwin                                                  |
+| `linux-desktop` | `systemctl get-default` = `graphical.target`, ou un bureau installé (GNOME, KDE, XFCE…) |
+| `linux-server`  | `multi-user.target` sans bureau                                   |
 
-## PhpStorm
+Si la détection échoue (conteneur sans systemd…), la question est posée. Pour forcer un profil : `--profile linux-server`.
 
-- [Documentation](https://www.jetbrains.com/help/phpstorm/sharing-your-ide-settings.html#settings-repository)
-- [Settings](https://github.com/babeuloula/phpstorm-settings)
-- Plugins
-	- [.env files support](https://plugins.jetbrains.com/plugin/9525--env-files-support)
-	- [CodeGlance3](https://plugins.jetbrains.com/plugin/17017-codeglance3)
-	- [Makefile support](https://plugins.jetbrains.com/plugin/9333-makefile-support)
-	- [nginx Configuration](https://plugins.jetbrains.com/plugin/15461-nginx-configuration)
-	- [PHP Annotations](https://plugins.jetbrains.com/plugin/7320-php-annotations)
-	- [PHP composer.json support](https://plugins.jetbrains.com/plugin/7631-php-composer-json-support)
-	- [Symfony Support](https://plugins.jetbrains.com/plugin/7219-symfony-support)
-	- [.ignore](https://plugins.jetbrains.com/plugin/7495--ignore)
-	- [String Manipulation](https://plugins.jetbrains.com/plugin/2162-string-manipulation)
-	- [NEON support](https://plugins.jetbrains.com/plugin/7060-neon-support/)
-	- [PlantUML integration](https://plugins.jetbrains.com/plugin/7017-plantuml-integration)
-	- [Grazie](https://plugins.jetbrains.com/plugin/12175-grazie)
+Les étapes de chaque profil, dans l'ordre, sont listées dans [`profiles/`](profiles).
+
+### Ce qui est installé
+
+- **Tous les profils** : zsh + oh-my-zsh (thème `babeuloula`, `zsh-autosuggestions`), liens vers les configs (`aliases`, `zshrc`, `gitconfig`, `nanorc`…), psysh, Claude Code (statusline, pas d'attribution dans les commits).
+- **Linux (desktop et serveur)** : paquets APT (git, jq, fzf, bat, htop, httpie, rclone, ansible…), Docker, LazyDocker, Terraform.
+- **Linux desktop** en plus : Chrome, Firefox, Signal, Tilix, Variety, Meld…, paquets Snap (VS Code, PhpStorm, DataGrip, Slack, Spotify, Discord…), raccourcis clavier GNOME et souris Logitech (logiops, Solaar).
+- **macOS** : formules et casks Homebrew (iTerm2, VS Code, PhpStorm, DataGrip, Chrome, Firefox, Signal, Slack, Spotify, Stats, Alt-Tab…), Node.js via nvm, OrbStack + LazyDocker, Logi Options+.
+
+## Mise à jour
+
+Sur un poste déjà installé :
+
+```bash
+dotfiles-update        # alias de ~/.dotfiles/dotfiles.sh update
+```
+
+La commande fait un `git pull`, puis n'exécute **que les étapes qui ont changé** :
+- chaque étape est une fonction shell (`steps/*.sh`) ; son empreinte (sha) est son code plus le contenu des fichiers de `config/` qu'elle copie ou charge ;
+- après chaque étape réussie, l'empreinte est enregistrée dans `~/.local/state/dotfiles/steps/` ;
+- ajouter un paquet à une liste modifie l'étape : elle est relancée et installe ce qui manque (rien n'est jamais désinstallé) ;
+- les fichiers simplement liés (`zshrc`, `aliases`…) sont à jour dès le `git pull` ;
+- les étapes préfixées par `always:` dans `profiles/` (ex. la statusline Claude, téléchargée depuis un gist) sont exécutées à chaque fois.
+
+Au premier lancement sur un poste installé avant ce système, aucune étape n'est enregistrée : le script propose de tout exécuter, de tout **marquer comme déjà fait**, ou d'avancer pas à pas.
+
+## Commandes
+
+```
+./dotfiles.sh install   installe ce qui n'est pas à jour (reprend là où ça s'est arrêté)
+./dotfiles.sh update    git pull puis applique ce qui a changé
+./dotfiles.sh status    affiche l'état de chaque étape, sans rien exécuter
+
+Options :
+  --step-by-step        demande confirmation avant chaque étape
+  --only <étape>        n'exécute que cette étape (répétable)
+  --force               exécute toutes les étapes, même à jour
+  --profile <profil>    force linux-desktop, linux-server ou macos
+```
+
+## En cas d'erreur
+
+Quand une étape échoue, ses dernières lignes de log sont affichées et le script propose **[r]éessayer / [p]asser / [a]rrêter**. Une étape passée ou en échec n'est pas enregistrée : relancer `./dotfiles.sh install` reprend directement sur elle.
+
+- Log complet : `~/.local/state/dotfiles/install.log`
+- Relancer une seule étape : `./dotfiles.sh install --only setup_zsh`
+
+## Personnalisation locale
+
+Les alias propres à une machine vont dans `~/.aliases.local` (non versionné, chargé par `zsh_profile` s'il existe).
+
+## Après l'installation
+
+### macOS
+
+- **Raccourcis clavier** : les raccourcis F13–F18 (Toggle mic, Spotify, iTerm2, PhpStorm, DataGrip, VS Code) se configurent dans `Réglages Système > Clavier > Raccourcis clavier`. Le script de bascule du micro est `~/.local/bin/toggle-mic.sh`.
+- **iTerm2** : `Preferences > General > Preferences > Load preferences from a custom folder`.
+
+### Linux desktop
+
+- **Variety** : lancez-le une première fois, puis `./dotfiles.sh install --only setup_variety`.
+- Redémarrez la session pour le groupe `docker` et le shell zsh.
+
+## Ajouter une étape
+
+1. Écrire la fonction dans `steps/common.sh`, `steps/linux.sh`, `steps/linux-desktop.sh` ou `steps/macos.sh`, en la rendant relançable (utiliser les helpers de `lib/helpers.sh` : `link_config`, `download`, `apt_install`, `brew_install`, `snap_install`, `add_apt_repo`…).
+2. L'ajouter au(x) fichier(s) de `profiles/`.
+3. `dotfiles-update` sur les autres postes l'exécutera automatiquement.
