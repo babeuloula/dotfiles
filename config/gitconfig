@@ -85,3 +85,7 @@
 # OS-specific settings (diff tool...), linked by setup_git
 [include]
     path = ~/.gitconfig.os
+
+# Machine-specific settings, not versioned, loaded last so they win
+[include]
+    path = ~/.gitconfig.local

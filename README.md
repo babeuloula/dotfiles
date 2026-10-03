@@ -76,7 +76,50 @@ Quand une étape échoue, ses dernières lignes de log sont affichées et le scr
 
 ## Personnalisation locale
 
-Les alias propres à une machine vont dans `~/.aliases.local` (non versionné, chargé par `zsh_profile` s'il existe).
+Pour adapter une machine sans toucher au dépôt, créez un fichier `.local` à côté de la config concernée. Ces fichiers ne sont pas versionnés, sont optionnels et sont toujours chargés **après** la config du dépôt : ce qu'ils définissent remplace donc celle-ci.
+
+| Config du dépôt | Surcharge locale | Prise en compte |
+|---|---|---|
+| `~/.aliases` | `~/.aliases.local` | nouveau shell |
+| `~/.functions` | `~/.functions.local` | nouveau shell |
+| `~/.dockerfunc` | `~/.dockerfunc.local` | nouveau shell |
+| `~/.scaleway` | `~/.scaleway.local` | nouveau shell |
+| `~/.zshrc` | `~/.zshrc.local` (chargé en toute fin de `.zshrc`) | nouveau shell |
+| `~/.gitconfig` | `~/.gitconfig.local` (via `[include]`, en dernier) | immédiate |
+| psysh | `~/.psysh/config/config.local.php` | prochain `psysh` |
+| Tilix (Linux desktop) | `~/.config/tilix.local.conf` (format `dconf dump`) | `./dotfiles.sh install --only setup_tilix` |
+
+Exemples :
+
+```zsh
+# ~/.aliases.local
+alias cat="cat"                         # désactive le remplacement par bat
+alias proj="cd ~/Sites/mon-projet"
+
+# ~/.zshrc.local
+export EDITOR=vim
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=245"
+```
+
+```ini
+# ~/.gitconfig.local
+[user]
+    email = moi@entreprise.fr
+```
+
+```php
+<?php
+// ~/.psysh/config/config.local.php : les clés de premier niveau remplacent celles du dépôt
+return [
+    'updateCheck' => 'never',
+];
+```
+
+Limites :
+
+- `~/.zshrc.local` est chargé après oh-my-zsh : il ne peut pas changer la liste des `plugins` ni le thème (ils sont déjà chargés). Il peut en revanche définir des variables, des alias, des fonctions, des `setopt`/`unsetopt`, des `bindkey`…
+- Git n'accepte qu'un seul `core.excludesfile` : pour ignorer d'autres fichiers sur une machine, pointez-le vers votre propre fichier dans `~/.gitconfig.local` (il remplace alors `~/.gitignore_global`).
+- nano, lazydocker et logid n'ont pas de mécanisme d'inclusion : leur config reste celle du dépôt.
 
 ## Après l'installation
 

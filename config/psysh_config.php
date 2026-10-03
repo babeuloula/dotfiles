@@ -5,7 +5,7 @@ if (is_file(getcwd() . '/vendor/autoload.php')) {
     require_once getcwd() . '/vendor/autoload.php';
 }
 
-return [
+$config = [
 
     // PsySH uses symfony/var-dumper's casters for presenting scalars,
     // resources, arrays and objects. You can enable additional casters, or
@@ -191,3 +191,9 @@ return [
     // Run PsySH without input validation. You don't want to set this to true.
     'yolo' => false,
 ];
+
+// Machine-specific settings, not versioned: config.local.php returns an array
+// whose top-level keys replace the ones above
+$local = __DIR__ . '/config.local.php';
+
+return is_file($local) ? array_replace($config, require $local) : $config;

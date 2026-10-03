@@ -5,6 +5,11 @@ function setup_tilix() {
     echo_info "Setting up Tilix"
 
     dconf load /com/gexperts/Tilix/ < "${DOTFILES_CONFIG_DIR}/tilix.conf"
+
+    # Machine-specific settings, not versioned, loaded after the repository ones
+    if [[ -f "$HOME/.config/tilix.local.conf" ]]; then
+        dconf load /com/gexperts/Tilix/ < "$HOME/.config/tilix.local.conf"
+    fi
 }
 
 function setup_variety() {

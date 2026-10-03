@@ -78,3 +78,6 @@ fi
 
 # ALT+C : Aperçu de l'arborescence des dossiers avec tree
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+
+# Machine-specific overrides, not versioned, loaded last
+[[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
