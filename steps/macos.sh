@@ -24,7 +24,6 @@ function install_brew_packages() {
         jq \
         less \
         nano \
-        ngrok \
         p7zip \
         pv \
         rclone \
@@ -46,6 +45,7 @@ function install_brew_packages() {
         iterm2 \
         kdrive \
         launchos \
+        ngrok \
         pearcleaner \
         phpstorm \
         signal \
