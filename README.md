@@ -12,7 +12,7 @@ curl -fsSL https://raw.githubusercontent.com/babeuloula/dotfiles/main/install.sh
 
 `install.sh` :
 1. installe le minimum (`git`, `curl` ; sur macOS : Xcode Command Line Tools, Homebrew et un bash récent) ;
-2. clone ce dépôt dans `~/.dotfiles` (ou le met à jour s'il existe déjà) ;
+2. clone ce dépôt dans `~/.dotfiles` (ou le met à jour s'il existe déjà), en SSH si une clé de la machine est acceptée par GitHub, sinon en HTTPS (lecture seule). Un clone HTTPS passe en SSH au prochain lancement d'`install.sh` une fois la clé ajoutée à GitHub ;
 3. lance `~/.dotfiles/dotfiles.sh install`.
 
 ### Profils

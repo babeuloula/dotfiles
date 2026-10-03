@@ -4,7 +4,8 @@
 
 set -e
 
-readonly REPO_URL="https://github.com/babeuloula/dotfiles.git"
+readonly REPO_SSH_URL="git@github.com:babeuloula/dotfiles.git"
+readonly REPO_HTTPS_URL="https://github.com/babeuloula/dotfiles.git"
 readonly BRANCH="main"
 readonly DOTFILES_DIR="$HOME/.dotfiles"
 
@@ -20,6 +21,22 @@ function load_brew() {
         eval "$(/opt/homebrew/bin/brew shellenv)"
     elif [[ -x /usr/local/bin/brew ]]; then
         eval "$(/usr/local/bin/brew shellenv)"
+    fi
+}
+
+# Succeeds when an SSH key of this machine is accepted by GitHub.
+# accept-new trusts github.com's host key on first use so git does not prompt later.
+function github_ssh_works() {
+    ssh -T -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new git@github.com 2>&1 \
+        | grep -q "successfully authenticated"
+}
+
+# SSH when possible (push without credentials), HTTPS otherwise (fresh machine without key)
+function repo_url() {
+    if github_ssh_works; then
+        echo "${REPO_SSH_URL}"
+    else
+        echo "${REPO_HTTPS_URL}"
     fi
 }
 
@@ -65,12 +82,22 @@ function main() {
             ;;
     esac
 
+    local url
+    url=$(repo_url)
+    if [[ "${url}" == "${REPO_HTTPS_URL}" ]]; then
+        info "No SSH key accepted by GitHub: using HTTPS (read-only)."
+    fi
+
     if [[ -d "${DOTFILES_DIR}/.git" ]]; then
         info "Update ${DOTFILES_DIR}."
+        # Switch an HTTPS clone to SSH once a key is available
+        if [[ "${url}" == "${REPO_SSH_URL}" ]]; then
+            git -C "${DOTFILES_DIR}" remote set-url origin "${url}"
+        fi
         git -C "${DOTFILES_DIR}" pull --rebase --autostash
     else
         info "Clone repo into ${DOTFILES_DIR}."
-        git clone -b "${BRANCH}" "${REPO_URL}" "${DOTFILES_DIR}"
+        git clone -b "${BRANCH}" "${url}" "${DOTFILES_DIR}"
     fi
 
     # Use the bash found in PATH (the Homebrew one on macOS)
