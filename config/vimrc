@@ -1,0 +1,32 @@
+" Keep the defaults vim uses when there is no ~/.vimrc (syntax, mouse...)
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
+set background=dark
+
+" Diff colors from the 256-color palette: the default ones rely on the
+" terminal theme's ANSI colors, which makes diffs unreadable with Solarized.
+" Only backgrounds are set, so syntax highlighting keeps the terminal colors.
+function! s:DiffColors() abort
+    highlight DiffAdd    cterm=NONE ctermfg=NONE ctermbg=22
+    highlight DiffDelete cterm=NONE ctermfg=238  ctermbg=52
+    highlight DiffChange cterm=NONE ctermfg=NONE ctermbg=236
+    highlight DiffText   cterm=bold ctermfg=NONE ctermbg=24
+endfunction
+augroup dotfiles_diff_colors
+    autocmd!
+    autocmd ColorScheme * call s:DiffColors()
+augroup END
+call s:DiffColors()
+
+" Blank filler lines instead of a wall of dashes, better line matching
+set fillchars+=diff:\ 
+" (only with vim's internal diff: Apple's /usr/bin/vim calls the external one)
+if &diffopt =~# 'internal'
+    set diffopt+=algorithm:histogram,indent-heuristic
+endif
+
+" Machine-specific settings, not versioned, loaded last
+if filereadable(expand('~/.vimrc.local'))
+    source ~/.vimrc.local
+endif

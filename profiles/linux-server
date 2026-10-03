@@ -3,6 +3,7 @@ install_apt_packages
 setup_zsh
 setup_git
 setup_nano
+setup_vim
 setup_psysh
 setup_claude_code
 always:setup_claude_statusline

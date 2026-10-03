@@ -54,6 +54,12 @@ function setup_nano() {
     link_config nanorc "$HOME/.nanorc"
 }
 
+function setup_vim() {
+    echo_info "Setting up vim"
+
+    link_config vimrc "$HOME/.vimrc"
+}
+
 function setup_psysh() {
     echo_info "Setting up psysh"
 

@@ -31,7 +31,7 @@ Les étapes de chaque profil, dans l'ordre, sont listées dans [`profiles/`](pro
 
 ### Ce qui est installé
 
-- **Tous les profils** : zsh + oh-my-zsh (thème `babeuloula`, `zsh-autosuggestions`), liens vers les configs (`aliases`, `zshrc`, `gitconfig`, `nanorc`…), psysh, Claude Code (statusline, pas d'attribution dans les commits).
+- **Tous les profils** : zsh + oh-my-zsh (thème `babeuloula`, `zsh-autosuggestions`), liens vers les configs (`aliases`, `zshrc`, `gitconfig`, `nanorc`, `vimrc`…), psysh, Claude Code (statusline, pas d'attribution dans les commits).
 - **Linux (desktop et serveur)** : paquets APT (git, jq, fzf, bat, htop, httpie, rclone, ansible…), Docker, LazyDocker, Terraform.
 - **Linux desktop** en plus : Chrome, Firefox, Signal, Tilix, Variety, Meld…, paquets Snap (VS Code, PhpStorm, DataGrip, Slack, Spotify, Discord…), raccourcis clavier GNOME et souris Logitech (logiops, Solaar).
 - **macOS** : formules et casks Homebrew (iTerm2, VS Code, PhpStorm, DataGrip, Chrome, Firefox, Signal, Slack, Spotify, Stats, Alt-Tab…), Node.js via nvm, OrbStack + LazyDocker, Logi Options+.
@@ -86,6 +86,7 @@ Pour adapter une machine sans toucher au dépôt, créez un fichier `.local` à 
 | `~/.scaleway` | `~/.scaleway.local` | nouveau shell |
 | `~/.zshrc` | `~/.zshrc.local` (chargé en toute fin de `.zshrc`) | nouveau shell |
 | `~/.gitconfig` | `~/.gitconfig.local` (via `[include]`, en dernier) | immédiate |
+| `~/.vimrc` | `~/.vimrc.local` | prochain `vim` |
 | psysh | `~/.psysh/config/config.local.php` | prochain `psysh` |
 | Tilix (Linux desktop) | `~/.config/tilix.local.conf` (format `dconf dump`) | `./dotfiles.sh install --only setup_tilix` |
 

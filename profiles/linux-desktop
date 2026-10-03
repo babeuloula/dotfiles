@@ -4,6 +4,7 @@ setup_tilix
 setup_zsh
 setup_git
 setup_nano
+setup_vim
 setup_variety
 setup_psysh
 setup_claude_code
