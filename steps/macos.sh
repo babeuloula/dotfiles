@@ -34,7 +34,6 @@ function install_brew_packages() {
 
     echo_info " - Casks"
     brew tap TheBoredTeam/boring-notch
-    brew tap lcharvol/tap
     brew_install --cask \
         alt-tab \
         appcleaner \
@@ -58,8 +57,7 @@ function install_brew_packages() {
         thaw \
         visual-studio-code \
         vlc \
-        TheBoredTeam/boring-notch/boring-notch \
-        lcharvol/tap/claude-god
+        TheBoredTeam/boring-notch/boring-notch
 
     echo_info " - fzf"
     "$(brew --prefix)/opt/fzf/install" --key-bindings --completion --no-update-rc --no-bash --no-fish
