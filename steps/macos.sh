@@ -8,6 +8,7 @@ function install_brew_packages() {
     brew upgrade
 
     echo_info " - Formulas"
+    brew tap hashicorp/tap
     brew_install \
         bat \
         bash \
@@ -27,8 +28,8 @@ function install_brew_packages() {
         p7zip \
         pv \
         rclone \
-        terraform \
         tree \
+        hashicorp/tap/terraform \
         mnapoli/tap/promptedit
 
     echo_info " - Casks"
