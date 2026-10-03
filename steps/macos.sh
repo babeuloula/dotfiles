@@ -39,7 +39,6 @@ function install_brew_packages() {
         datagrip \
         discord \
         firefox \
-        gimp \
         google-chrome \
         insomnia \
         iterm2 \
