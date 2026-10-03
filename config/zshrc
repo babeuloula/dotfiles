@@ -35,6 +35,9 @@ if [[ "$OSTYPE" != darwin* ]]; then
     plugins+=(command-not-found)
 fi
 
+# Suggestion color from the 256-color palette, independent of the terminal theme's ANSI 8
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=244"
+
 source $ZSH/oh-my-zsh.sh
 
 export LANG=fr_FR.UTF-8
