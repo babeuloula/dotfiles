@@ -29,8 +29,7 @@ function install_brew_packages() {
         pv \
         rclone \
         tree \
-        hashicorp/tap/terraform \
-        mnapoli/tap/promptedit
+        hashicorp/tap/terraform
 
     echo_info " - Casks"
     brew tap TheBoredTeam/boring-notch
@@ -58,6 +57,7 @@ function install_brew_packages() {
         thaw \
         visual-studio-code \
         vlc \
+        mnapoli/tap/promptedit \
         TheBoredTeam/boring-notch/boring-notch
 
     echo_info " - fzf"
