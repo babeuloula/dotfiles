@@ -12,6 +12,8 @@ always:setup_claude_statusline
 install_docker
 install_lazydocker
 install_terraform
+install_github_cli
+install_gitlab_cli
 install_snap_packages
 install_and_setup_mouse_and_keyboard
 clean_apt

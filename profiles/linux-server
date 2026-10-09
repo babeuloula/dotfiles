@@ -10,4 +10,6 @@ always:setup_claude_statusline
 install_docker
 install_lazydocker
 install_terraform
+install_github_cli
+install_gitlab_cli
 clean_apt

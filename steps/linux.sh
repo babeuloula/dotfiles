@@ -107,6 +107,45 @@ function install_terraform() {
     apt_install terraform
 }
 
+function install_github_cli() {
+    echo_info "Install GitHub CLI"
+
+    local keyring="/usr/share/keyrings/githubcli-archive-keyring.gpg"
+    local arch
+    arch=$(dpkg --print-architecture)
+
+    # The key is published already dearmored, so add_apt_repo cannot be used
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee "${keyring}" > /dev/null
+    sudo chmod 0644 "${keyring}"
+    echo "deb [arch=${arch} signed-by=${keyring}] https://cli.github.com/packages stable main" \
+        | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+    apt_update
+    apt_install gh
+}
+
+function install_gitlab_cli() {
+    echo_info "Install GitLab CLI"
+
+    local arch url tmp
+    arch=$(dpkg --print-architecture)
+
+    # No APT repository: install the .deb of the latest release
+    url=$(curl -fsSL https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/releases/permalink/latest \
+        | jq -r --arg suffix "_linux_${arch}.deb" '.assets.links[] | select(.name | endswith($suffix)) | .direct_asset_url' \
+        | head -n 1)
+
+    if [[ -z "${url}" ]]; then
+        echo_warning "  Aucun paquet glab trouvé pour ${arch}"
+        return 1
+    fi
+
+    tmp=$(mktemp -d)
+    curl -fsSL "${url}" -o "${tmp}/glab.deb"
+    sudo apt-get install -y "${tmp}/glab.deb"
+    rm -rf "${tmp}"
+}
+
 function clean_apt() {
     echo_info "Clean APT"
 

@@ -17,7 +17,9 @@ function install_brew_packages() {
         fd \
         ffmpeg \
         fzf \
+        gh \
         git \
+        glab \
         gnupg \
         htop \
         httpie \
