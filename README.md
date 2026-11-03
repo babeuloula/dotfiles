@@ -34,7 +34,7 @@ Les étapes de chaque profil, dans l'ordre, sont listées dans [`profiles/`](pro
 - **Tous les profils** : zsh + oh-my-zsh (thème `babeuloula`, `zsh-autosuggestions`), liens vers les configs (`aliases`, `zshrc`, `gitconfig`, `nanorc`, `vimrc`…), psysh, Claude Code (statusline, pas d'attribution dans les commits).
 - **Linux (desktop et serveur)** : paquets APT (git, jq, fzf, bat, htop, httpie, rclone, ansible…), Docker, LazyDocker, Terraform, GitHub CLI, GitLab CLI.
 - **Linux desktop** en plus : Chrome, Firefox, Signal, Tilix, Variety, Meld…, paquets Snap (VS Code, PhpStorm, DataGrip, Slack, Spotify, Discord…), raccourcis clavier GNOME et souris Logitech (logiops, Solaar).
-- **macOS** : formules et casks Homebrew (iTerm2, VS Code, PhpStorm, DataGrip, Chrome, Firefox, Signal, Slack, Spotify, Stats, Alt-Tab…), Node.js via nvm, OrbStack + LazyDocker, Logi Options+.
+- **macOS** : formules et casks Homebrew (iTerm2, VS Code, PhpStorm, DataGrip, Chrome, Firefox, Signal, Slack, Spotify, Stats, Alt-Tab…), Node.js via nvm, OrbStack + LazyDocker, Android Studio + SDK (platform-tools, émulateur, dernière plateforme Android), Logi Options+.
 
 ## Mise à jour
 
@@ -127,6 +127,7 @@ Limites :
 ### macOS
 
 - **Raccourcis clavier** : les raccourcis F13–F18 (Toggle mic, Spotify, iTerm2, PhpStorm, DataGrip, VS Code) se configurent dans `Réglages Système > Clavier > Raccourcis clavier`. Le script de bascule du micro est `~/.local/bin/toggle-mic.sh`.
+- **Android Studio** : ouvrez-le une première fois pour terminer l'assistant de configuration, en gardant le SDK dans `~/Library/Android/sdk` (déjà installé par le script).
 - **iTerm2** : `Preferences > General > Preferences > Load preferences from a custom folder`.
 
 ### Linux desktop

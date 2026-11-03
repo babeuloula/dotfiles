@@ -2,6 +2,7 @@
 install_brew_packages
 install_node
 install_orbstack
+install_android_studio
 setup_iterm2
 setup_zsh
 setup_git

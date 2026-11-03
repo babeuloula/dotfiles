@@ -89,6 +89,34 @@ function install_orbstack() {
     link_config lazydocker.yml "$HOME/.config/lazydocker/config.yml"
 }
 
+function install_android_studio() {
+    echo_info "Install Android Studio"
+
+    brew_install --cask android-studio android-commandlinetools
+
+    echo_info " - Android SDK (~/Library/Android/sdk)"
+    # Same SDK location as Android Studio's setup wizard, so both share it.
+    # The Android CLI replaces the deprecated sdkmanager and accepts the licenses itself.
+    local sdk_root="$HOME/Library/Android/sdk"
+    local platform
+
+    mkdir -p "${sdk_root}"
+
+    platform=$(android --no-metrics --sdk="${sdk_root}" sdk list --all 'platforms/*' \
+        | grep -oE 'platforms/android-[0-9]+ ' \
+        | tr -d ' ' \
+        | sort -t- -k2 -n \
+        | tail -1)
+
+    android --no-metrics --sdk="${sdk_root}" sdk install \
+        cmdline-tools/latest \
+        platform-tools \
+        emulator \
+        "${platform}" < /dev/null
+
+    echo_warning "→ Open Android Studio once to finish its setup wizard (keep the SDK at ${sdk_root})."
+}
+
 function setup_iterm2() {
     echo_info "Setting up iTerm2"
     echo_warning "→ Configure iTerm2 manually via Preferences > Profiles."
