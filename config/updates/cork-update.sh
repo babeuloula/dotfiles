@@ -4,7 +4,7 @@
 #   cork-update            build and install when a newer version exists
 #   cork-update --force    build and install even when already up to date
 #   cork-update --check    print "<installed> <latest>", exit 10 when an update exists
-# Runs with macOS' bash 3.2 (LaunchAgent, SwiftBar).
+# Runs with macOS' bash 3.2 (LaunchAgent).
 
 set -eo pipefail
 

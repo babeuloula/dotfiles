@@ -141,8 +141,8 @@ function install_cork() {
     "$HOME/.local/bin/cork-update"
 }
 
-# Checks every 6 hours for Homebrew and Cork updates: macOS notification
-# (LaunchAgent) and a counter in the menu bar (SwiftBar)
+# Checks every 6 hours for Homebrew and Cork updates (LaunchAgent) and sends
+# a macOS notification
 function setup_update_checks() {
     echo_info "Set up Homebrew and Cork update checks"
 
@@ -186,13 +186,6 @@ function setup_update_checks() {
     echo_warning "→ Allow notifications from « Homebrew » if macOS asks."
     "${app}/Contents/MacOS/terminal-notifier" -title "Mises à jour" -group brew-check \
         -message "Les notifications de mises à jour sont actives." || true
-
-    echo_info " - SwiftBar"
-    brew_install --cask swiftbar
-    link_config updates/swiftbar-updates.sh "$HOME/.swiftbar/updates.6h.sh"
-    # Skips the plugin folder picker of the first launch
-    defaults write com.ameba.SwiftBar PluginDirectory "$HOME/.swiftbar"
-    open -a SwiftBar
 
     echo_info " - LaunchAgent local.brew-check"
     local label="local.brew-check"

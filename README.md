@@ -34,7 +34,7 @@ Les étapes de chaque profil, dans l'ordre, sont listées dans [`profiles/`](pro
 - **Tous les profils** : zsh + oh-my-zsh (thème `babeuloula`, `zsh-autosuggestions`), liens vers les configs (`aliases`, `zshrc`, `gitconfig`, `nanorc`, `vimrc`…), psysh, Claude Code (statusline, pas d'attribution dans les commits).
 - **Linux (desktop et serveur)** : paquets APT (git, jq, fzf, bat, htop, httpie, rclone, ansible…), Docker, LazyDocker, Terraform, GitHub CLI, GitLab CLI.
 - **Linux desktop** en plus : Chrome, Firefox, Signal, Tilix, Variety, Meld…, paquets Snap (VS Code, PhpStorm, DataGrip, Slack, Spotify, Discord…), raccourcis clavier GNOME et souris Logitech (logiops, Solaar).
-- **macOS** : formules et casks Homebrew (iTerm2, VS Code, PhpStorm, DataGrip, Chrome, Firefox, Signal, Slack, Spotify, Stats, Alt-Tab…), Node.js via nvm, OrbStack + LazyDocker, Android Studio + SDK (platform-tools, émulateur, dernière plateforme Android), Cork compilé depuis les sources (scheme gratuit Self-Compiled), vérification des mises à jour Homebrew et Cork toutes les 6 h (notification + compteur SwiftBar), Logi Options+.
+- **macOS** : formules et casks Homebrew (iTerm2, VS Code, PhpStorm, DataGrip, Chrome, Firefox, Signal, Slack, Spotify, Stats, Alt-Tab…), Node.js via nvm, OrbStack + LazyDocker, Android Studio + SDK (platform-tools, émulateur, dernière plateforme Android), Cork compilé depuis les sources (scheme gratuit Self-Compiled), vérification des mises à jour Homebrew et Cork toutes les 6 h (notification), Logi Options+.
 
 ## Mise à jour
 
@@ -131,7 +131,7 @@ Limites :
 - **iTerm2** : `Preferences > General > Preferences > Load preferences from a custom folder`.
 - **Xcode** : à installer depuis l'App Store **avant** l'étape `install_cork`. Sans lui, l'étape échoue : installez Xcode puis choisissez [r]éessayer, ou passez-la et relancez `./dotfiles.sh install` plus tard.
 - **Cork** : les sources sont dans `~/Applications/Cork`, l'app dans `/Applications/Cork.app`. Quand une nouvelle version est signalée, lancez `cork-update` (compile et installe le dernier tag stable ; `--force` pour recompiler, `--check` pour comparer les versions). Log : `~/Library/Logs/cork-update.log`.
-- **Notifications de mises à jour** : elles sont envoyées par `~/Library/Application Support/brew-notifier/Homebrew.app`, une copie de `terminal-notifier` avec l'icône Homebrew (macOS prend l'icône dans l'app qui envoie la notification). Autorisez « Homebrew » à la première demande ; un clic sur la notification ouvre Cork. Le LaunchAgent `local.brew-check` lance `~/.local/bin/brew-check` toutes les 6 h (erreurs : `~/Library/Logs/brew-check.err`) ; le compteur 🍺 de la barre de menu vient du plugin SwiftBar `~/.swiftbar/updates.6h.sh`.
+- **Notifications de mises à jour** : elles sont envoyées par `~/Library/Application Support/brew-notifier/Homebrew.app`, une copie de `terminal-notifier` avec l'icône Homebrew (macOS prend l'icône dans l'app qui envoie la notification). Autorisez « Homebrew » à la première demande ; un clic sur la notification ouvre Cork. Le LaunchAgent `local.brew-check` lance `~/.local/bin/brew-check` toutes les 6 h (erreurs : `~/Library/Logs/brew-check.err`).
 
 ### Linux desktop
 
