@@ -117,6 +117,105 @@ function install_android_studio() {
     echo_warning "→ Open Android Studio once to finish its setup wizard (keep the SDK at ${sdk_root})."
 }
 
+function install_cork() {
+    echo_info "Install Cork (self-compiled)"
+
+    # Xcode only comes from the App Store: retry this step once it is installed
+    if [[ ! -d /Applications/Xcode.app ]]; then
+        echo_error "Xcode est requis pour compiler Cork : installez-le depuis l'App Store,"
+        echo_error "puis choisissez [r]éessayer (ou [p]asser et relancez l'installation plus tard)."
+        return 1
+    fi
+
+    echo_info " - Xcode: active toolchain, license, first launch components"
+    sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+    sudo xcodebuild -license accept
+    sudo xcodebuild -runFirstLaunch
+
+    # Tuist runs through "mise exec", in the version pinned by Cork's README
+    brew_install mise
+
+    link_config updates/cork-update.sh "$HOME/.local/bin/cork-update"
+
+    # Source in ~/Applications/Cork, app in /Applications/Cork.app
+    "$HOME/.local/bin/cork-update"
+}
+
+# Checks every 6 hours for Homebrew and Cork updates: macOS notification
+# (LaunchAgent) and a counter in the menu bar (SwiftBar)
+function setup_update_checks() {
+    echo_info "Set up Homebrew and Cork update checks"
+
+    link_config updates/cork-update.sh "$HOME/.local/bin/cork-update"
+    link_config updates/brew-check.sh "$HOME/.local/bin/brew-check"
+
+    # macOS takes a notification's icon from the app that sends it: a copy of
+    # terminal-notifier with its own bundle id, name and icon shows as "Homebrew"
+    echo_info " - Notifier Homebrew.app"
+    brew_install terminal-notifier
+    local app="$HOME/Library/Application Support/brew-notifier/Homebrew.app"
+    local info="${app}/Contents/Info.plist"
+    local iconset
+    rm -rf "${app}"
+    mkdir -p "$(dirname "${app}")"
+    ditto "$(brew --prefix terminal-notifier)/terminal-notifier.app" "${app}"
+
+    iconset="$(mktemp -d)/Homebrew.iconset"
+    mkdir -p "${iconset}"
+    local size
+    for size in 16 32 128 256 512; do
+        sips -z "${size}" "${size}" "${DOTFILES_CONFIG_DIR}/updates/homebrew-icon.png" \
+            --out "${iconset}/icon_${size}x${size}.png" > /dev/null
+        sips -z "$((size * 2))" "$((size * 2))" "${DOTFILES_CONFIG_DIR}/updates/homebrew-icon.png" \
+            --out "${iconset}/icon_${size}x${size}@2x.png" > /dev/null
+    done
+    rm -f "${app}/Contents/Resources/"*.icns
+    iconutil -c icns "${iconset}" -o "${app}/Contents/Resources/Homebrew.icns"
+    rm -rf "$(dirname "${iconset}")"
+
+    /usr/libexec/PlistBuddy \
+        -c 'Set :CFBundleIdentifier local.brew-notifier' \
+        -c 'Set :CFBundleName Homebrew' \
+        -c 'Set :CFBundleIconFile Homebrew' \
+        -c 'Add :CFBundleDisplayName string Homebrew' \
+        "${info}"
+    codesign --force --deep --sign - "${app}"
+    /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "${app}"
+
+    # The first notification asks for permission: do it now rather than from the LaunchAgent
+    echo_warning "→ Allow notifications from « Homebrew » if macOS asks."
+    "${app}/Contents/MacOS/terminal-notifier" -title "Mises à jour" -group brew-check \
+        -message "Les notifications de mises à jour sont actives." || true
+
+    echo_info " - SwiftBar"
+    brew_install --cask swiftbar
+    link_config updates/swiftbar-updates.sh "$HOME/.swiftbar/updates.6h.sh"
+    # Skips the plugin folder picker of the first launch
+    defaults write com.ameba.SwiftBar PluginDirectory "$HOME/.swiftbar"
+    open -a SwiftBar
+
+    echo_info " - LaunchAgent local.brew-check"
+    local label="local.brew-check"
+    local plist="$HOME/Library/LaunchAgents/${label}.plist"
+    mkdir -p "$(dirname "${plist}")"
+    cat > "${plist}" << EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key><string>${label}</string>
+    <key>ProgramArguments</key><array><string>$HOME/.local/bin/brew-check</string></array>
+    <key>StartInterval</key><integer>21600</integer>
+    <key>RunAtLoad</key><true/>
+    <key>StandardErrorPath</key><string>$HOME/Library/Logs/brew-check.err</string>
+</dict>
+</plist>
+EOF
+    # Reload so a changed plist is taken into account
+    launchctl bootout "gui/$(id -u)/${label}" 2> /dev/null || true
+    launchctl bootstrap "gui/$(id -u)" "${plist}"
+}
+
 function setup_iterm2() {
     echo_info "Setting up iTerm2"
     echo_warning "→ Configure iTerm2 manually via Preferences > Profiles."

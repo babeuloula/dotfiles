@@ -3,6 +3,8 @@ install_brew_packages
 install_node
 install_orbstack
 install_android_studio
+install_cork
+setup_update_checks
 setup_iterm2
 setup_zsh
 setup_git
